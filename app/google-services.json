@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "541006322323",
+    "project_id": "wordl-407a7",
+    "storage_bucket": "wordl-407a7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:541006322323:android:f68607f04dfb1aedc5cb66",
+        "android_client_info": {
+          "package_name": "com.example.wordl_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3u2Aez8OwE_9nW9O7egSp9Cbvlm-e_OA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

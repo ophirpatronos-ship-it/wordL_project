@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center"
+        android:background="#1A1A1A"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- כותרת וורדל -->
+        <TextView
+            android:id="@+id/title"
+            android:text="WORDLE"
+            android:textSize="48sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.1"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="32dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!-- כפתורי התחברות / הרשמה -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:text="התחברות"
+                android:layout_marginEnd="12dp"
+                android:backgroundTint="#3A3A3C"
+                android:textColor="#FFFFFF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:text="הרשמה"
+                android:backgroundTint="#3A3A3C"
+                android:textColor="#FFFFFF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- כפתורי משחק -->
+        <Button
+            android:id="@+id/btnDaily"
+            android:text="מילה יומית"
+            android:textSize="20sp"
+            android:backgroundTint="#538D4E"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="18dp"
+            android:layout_width="250dp"
+            android:layout_height="60dp" />
+
+        <Button
+            android:id="@+id/btnNewGame"
+            android:text="משחק חדש"
+            android:textSize="20sp"
+            android:backgroundTint="#B59F3B"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="18dp"
+            android:layout_width="250dp"
+            android:layout_height="60dp" />
+
+        <Button
+            android:id="@+id/btnProfile"
+            android:text="פרופיל"
+            android:textSize="18sp"
+            android:backgroundTint="#3A3A3C"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="18dp"
+            android:layout_width="250dp"
+            android:layout_height="55dp" />
+
+        <Button
+            android:id="@+id/btnLeaderboard"
+            android:text="טבלת מובילים"
+            android:textSize="18sp"
+            android:backgroundTint="#3A3A3C"
+            android:textColor="#FFFFFF"
+            android:layout_width="250dp"
+            android:layout_height="55dp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
