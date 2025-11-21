@@ -12,7 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WordL_project">
         <activity
-            android:name=".MainActivity"
+            android:name=".screens.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.Login"
+            android:exported="false" />
+        <activity
+            android:name=".screens.SignUp"
+            android:exported="false" />
+        <activity
+            android:name=".screens.landing"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

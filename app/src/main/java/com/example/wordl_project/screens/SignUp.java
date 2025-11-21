@@ -1,0 +1,210 @@
+package com.example.wordl_project.screens;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
+import com.example.wordl_project.R;
+import com.example.wordl_project.models.User;
+import com.example.wordl_project.services.DatabaseService;
+import com.example.wordl_project.utils.SharedPreferencesUtil;
+import com.example.wordl_project.utils.Validator;
+
+
+/// Activity for registering the user
+/// This activity is used to register the user
+/// It contains fields for the user to enter their information
+/// It also contains a button to register the user
+/// When the user is registered, they are redirected to the main activity
+public class SignUp extends AppCompatActivity implements View.OnClickListener {
+
+    private static final String TAG = "RegisterActivity";
+
+    private EditText etEmail, etPassword, etLName,etUsername ,etPhone;
+    private Button btnRegister;
+    private TextView tvLogin;
+
+    DatabaseService databaseService;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        /// set the layout for the activity
+        setContentView(R.layout.activity_sign_up);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
+        databaseService = DatabaseService.getInstance();
+
+        /// get the views
+        etEmail = findViewById(R.id.inputEmail);
+        etPassword = findViewById(R.id.inputPassword);
+        etUsername = findViewById(R.id.inputUsername);
+        btnRegister = findViewById(R.id.btnRegister);
+
+        /// set the click listener
+        btnRegister.setOnClickListener(this);
+        tvLogin.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == btnRegister.getId()) {
+            Log.d(TAG, "onClick: Register button clicked");
+
+            /// get the input from the user
+            String email = etEmail.getText().toString();
+            String password = etPassword.getText().toString();
+            String username = etUsername.getText().toString();
+            String phone = etPhone.getText().toString();
+
+            /// log the input
+            Log.d(TAG, "onClick: Email: " + email);
+            Log.d(TAG, "onClick: Password: " + password);
+            Log.d(TAG, "onClick: First Name: " + username);
+            Log.d(TAG, "onClick: Phone: " + phone);
+
+
+            /// Validate input
+            Log.d(TAG, "onClick: Validating input...");
+            if (!checkInput(email, password, username , phone)) {
+                /// stop if input is invalid
+                return;
+            }
+
+            Log.d(TAG, "onClick: Registering user...");
+
+            /// Register user
+            registerUser(email, password, username,phone);
+        } else if (v.getId() == tvLogin.getId()) {
+            /// Navigate back to Login Activity
+            finish();
+        }
+    }
+
+    /// Check if the input is valid
+    /// @return true if the input is valid, false otherwise
+    /// @see Validator
+    private boolean checkInput(String email, String password, String username, String phone) {
+
+        if (!Validator.isEmailValid(email)) {
+            Log.e(TAG, "checkInput: Invalid email address");
+            /// show error message to user
+            etEmail.setError("Invalid email address");
+            /// set focus to email field
+            etEmail.requestFocus();
+            return false;
+        }
+
+        if (!Validator.isPasswordValid(password)) {
+            Log.e(TAG, "checkInput: Password must be at least 6 characters long");
+            /// show error message to user
+            etPassword.setError("Password must be at least 6 characters long");
+            /// set focus to password field
+            etPassword.requestFocus();
+            return false;
+        }
+
+        if (!Validator.isNameValid(username)) {
+            Log.e(TAG, "checkInput: First name must be at least 3 characters long");
+            /// show error message to user
+            etUsername.setError("First name must be at least 3 characters long");
+            /// set focus to first name field
+            etUsername.requestFocus();
+            return false;
+        }
+
+        if (!Validator.isPhoneValid(phone)) {
+            Log.e(TAG, "checkInput: Phone number must be at least 10 characters long");
+            /// show error message to user
+            etPhone.setError("Phone number must be at least 10 characters long");
+            /// set focus to phone field
+            etPhone.requestFocus();
+            return false;
+        }
+
+        Log.d(TAG, "checkInput: Input is valid");
+        return true;
+    }
+
+    /// Register the user
+    private void registerUser(String email, String password, String userName, String phone) {
+        Log.d(TAG, "registerUser: Registering user...");
+
+        String uid = databaseService.generateUserId();
+
+        /// create a new user object
+        User user = new User(
+                uid,
+                password,
+                email,
+                0,
+                0,
+                0,
+                0,
+                false
+        );
+
+        databaseService.checkIfEmailExists(email, new DatabaseService.DatabaseCallback<>() {
+            @Override
+            public void onCompleted(Boolean exists) {
+                if (exists) {
+                    Log.e(TAG, "onCompleted: Email already exists");
+                    /// show error message to user
+                    Toast.makeText(SignUp.this, "Email already exists", Toast.LENGTH_SHORT).show();
+                } else {
+                    /// proceed to create the user
+                    createUserInDatabase(user);
+                }
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Log.e(TAG, "onFailed: Failed to check if email exists", e);
+                /// show error message to user
+                Toast.makeText(SignUp.this, "Failed to register user", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void createUserInDatabase(User user) {
+        databaseService.createNewUser(user, new DatabaseService.DatabaseCallback<Void>() {
+            @Override
+            public void onCompleted(Void object) {
+                Log.d(TAG, "createUserInDatabase: User created successfully");
+                /// save the user to shared preferences
+                SharedPreferencesUtil.saveUser(SignUp.this, user);
+                Log.d(TAG, "createUserInDatabase: Redirecting to MainActivity");
+                /// Redirect to MainActivity and clear back stack to prevent user from going back to register screen
+                Intent mainIntent = new Intent(SignUp.this, MainActivity.class);
+                /// clear the back stack (clear history) and start the MainActivity
+                mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(mainIntent);
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Log.e(TAG, "createUserInDatabase: Failed to create user", e);
+                /// show error message to user
+                Toast.makeText(SignUp.this, "Failed to register user", Toast.LENGTH_SHORT).show();
+                /// sign out the user if failed to register
+                SharedPreferencesUtil.signOutUser(SignUp.this);
+            }
+        });
+    }
+}
