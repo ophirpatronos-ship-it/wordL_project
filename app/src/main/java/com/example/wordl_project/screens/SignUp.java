@@ -31,9 +31,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "RegisterActivity";
 
-    private EditText etEmail, etPassword, etLName,etUsername ,etPhone;
+    private EditText etEmail, etPassword, etLName,etUsername;
     private Button btnRegister;
-    private TextView tvLogin;
+    private Button tvSignUp;
 
     DatabaseService databaseService;
 
@@ -43,7 +43,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         EdgeToEdge.enable(this);
         /// set the layout for the activity
         setContentView(R.layout.activity_sign_up);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.signup), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -59,7 +59,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
         /// set the click listener
         btnRegister.setOnClickListener(this);
-        tvLogin.setOnClickListener(this);
+//        tvSignUp.setOnClickListener(this);
     }
 
     @Override
@@ -71,18 +71,16 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             String email = etEmail.getText().toString();
             String password = etPassword.getText().toString();
             String username = etUsername.getText().toString();
-            String phone = etPhone.getText().toString();
 
             /// log the input
             Log.d(TAG, "onClick: Email: " + email);
             Log.d(TAG, "onClick: Password: " + password);
             Log.d(TAG, "onClick: First Name: " + username);
-            Log.d(TAG, "onClick: Phone: " + phone);
 
 
             /// Validate input
             Log.d(TAG, "onClick: Validating input...");
-            if (!checkInput(email, password, username , phone)) {
+            if (!checkInput(email, password, username)) {
                 /// stop if input is invalid
                 return;
             }
@@ -90,8 +88,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             Log.d(TAG, "onClick: Registering user...");
 
             /// Register user
-            registerUser(email, password, username,phone);
-        } else if (v.getId() == tvLogin.getId()) {
+            registerUser(email, password, username);
+        } else if (v.getId() == tvSignUp.getId()) {
             /// Navigate back to Login Activity
             finish();
         }
@@ -100,7 +98,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     /// Check if the input is valid
     /// @return true if the input is valid, false otherwise
     /// @see Validator
-    private boolean checkInput(String email, String password, String username, String phone) {
+    private boolean checkInput(String email, String password, String username) {
 
         if (!Validator.isEmailValid(email)) {
             Log.e(TAG, "checkInput: Invalid email address");
@@ -129,21 +127,12 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             return false;
         }
 
-        if (!Validator.isPhoneValid(phone)) {
-            Log.e(TAG, "checkInput: Phone number must be at least 10 characters long");
-            /// show error message to user
-            etPhone.setError("Phone number must be at least 10 characters long");
-            /// set focus to phone field
-            etPhone.requestFocus();
-            return false;
-        }
-
         Log.d(TAG, "checkInput: Input is valid");
         return true;
     }
 
     /// Register the user
-    private void registerUser(String email, String password, String userName, String phone) {
+    private void registerUser(String email, String password, String userName) {
         Log.d(TAG, "registerUser: Registering user...");
 
         String uid = databaseService.generateUserId();
@@ -151,14 +140,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         /// create a new user object
         User user = new User(
                 uid,
-                password,
-                email,
-                0,
-                0,
-                0,
-                0,
-                false
-        );
+                userName,password,email );
 
         databaseService.checkIfEmailExists(email, new DatabaseService.DatabaseCallback<>() {
             @Override

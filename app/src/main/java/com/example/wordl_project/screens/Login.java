@@ -33,7 +33,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         EdgeToEdge.enable(this);
         /// set the layout for the activity
         setContentView(R.layout.activity_log_in);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.login), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
@@ -110,6 +110,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             /// @param user the user object that is logged in
             @Override
             public void onCompleted(User user) {
+                if (user == null) {
+                    /// Show error message to user
+                    etPassword.setError("Invalid email or password");
+                    etPassword.requestFocus();
+                    return;
+                }
                 Log.d(TAG, "onCompleted: User logged in: " + user.toString());
                 /// save the user data to shared preferences
                 SharedPreferencesUtil.saveUser(Login.this, user);

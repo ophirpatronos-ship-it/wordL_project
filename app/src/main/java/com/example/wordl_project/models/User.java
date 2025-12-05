@@ -1,33 +1,32 @@
 package com.example.wordl_project.models;
 
-import androidx.annotation.NonNull;
-
 public class User {
 
     protected String id;
+    protected String username;
     protected String password;
-    public String email;
-    public int score;
-    public int sucssesWordCount;
-    public int faildWordCount;
-    public double sucssesRate;
-    public boolean isAdmin;
+    protected String email;
+    public String image;
+    protected int score;
+    protected int sucssesWordCount;
+    protected int faildWordCount;
+    protected double sucssesRate;
+    protected boolean isAdmin;
 
-
-    public User() {
-    }
-
-    public User(String id, String password, String email, int score,
-                int sucssesWordCount, int faildWordCount, double sucssesRate,
-                boolean isAdmin) {
+    public User(String id, String username, String password, String email) {
         this.id = id;
+        this.username = username;
         this.password = password;
         this.email = email;
+        this.image = image;
         this.score = score;
         this.sucssesWordCount = sucssesWordCount;
         this.faildWordCount = faildWordCount;
         this.sucssesRate = sucssesRate;
         this.isAdmin = isAdmin;
+    }
+
+    public User() {
     }
 
     public String getId() {
@@ -36,6 +35,14 @@ public class User {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -52,6 +59,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public int getScore() {
@@ -94,13 +109,14 @@ public class User {
         isAdmin = admin;
     }
 
-    @NonNull
     @Override
     public String toString() {
         return "User{" +
                 "id='" + id + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", image='" + image + '\'' +
                 ", score=" + score +
                 ", sucssesWordCount=" + sucssesWordCount +
                 ", faildWordCount=" + faildWordCount +

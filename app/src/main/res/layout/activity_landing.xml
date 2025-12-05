@@ -1,67 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/landing"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
-    android:orientation="vertical"
+    android:background="@drawable/background"
     android:gravity="center"
-    android:id="@+id/landing"
+    android:orientation="vertical"
     android:padding="24dp">
 
     <!-- כרטיס מרכזי שמתרחב בצורה דינמית -->
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="327dp"
+        android:layout_height="553dp"
         android:layout_weight="1"
+        android:backgroundTint="#C0C0C0"
+        android:padding="32dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="8dp"
-        app:cardUseCompatPadding="true"
-        android:padding="32dp"
-        android:backgroundTint="#C0C0C0">
+        app:cardUseCompatPadding="true">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_width="297dp"
+            android:layout_height="642dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <!-- כותרת גדולה -->
             <TextView
                 android:id="@+id/titleWelcome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ברוך הבא!"
-                android:textSize="32sp"
-                android:textStyle="bold"
-                android:textColor="#333333"
+                android:layout_marginBottom="60dp"
                 android:gravity="center"
-                android:layout_marginBottom="60dp"/>
+                android:text="ברוך הבא!"
+                android:textColor="#4CAF50"
+                android:textSize="32sp"
+                android:textStyle="bold" />
 
             <!-- כפתור התחברות -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnGoToLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="התחברות"
-                android:textSize="20sp"
+                android:layout_marginBottom="30dp"
                 android:backgroundTint="#4CAF50"
-                android:textColor="#FFFFFF"
                 android:padding="16dp"
-                app:cornerRadius="16dp"
-                android:layout_marginBottom="30dp"/>
+                android:text="התחברות"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                app:cornerRadius="16dp" />
 
             <!-- כפתור הרשמה -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnGoToRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="הרשמה"
-                android:textSize="20sp"
                 android:backgroundTint="#FFEB3B"
-                android:textColor="#000000"
                 android:padding="16dp"
-                app:cornerRadius="16dp"/>
+                android:text="הרשמה"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:cornerRadius="16dp" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

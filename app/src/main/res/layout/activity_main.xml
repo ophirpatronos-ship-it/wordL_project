@@ -8,32 +8,32 @@
     tools:context=".screens.MainActivity">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:padding="24dp"
-        android:gravity="center"
-        android:background="#1A1A1A"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/background3"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="24dp">
 
         <!-- כותרת וורדל -->
         <TextView
             android:id="@+id/title"
-            android:text="WORDLE"
-            android:textSize="48sp"
-            android:textStyle="bold"
-            android:letterSpacing="0.1"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="32dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:letterSpacing="0.1"
+            android:text="WORDLE"
+            android:textColor="#FFFFFF"
+            android:textSize="48sp"
+            android:textStyle="bold" />
 
         <!-- כפתורי התחברות / הרשמה -->
         <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginBottom="40dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:gravity="center"
+            android:orientation="horizontal">
 
 
         </LinearLayout>
@@ -41,42 +41,42 @@
         <!-- כפתורי משחק -->
         <Button
             android:id="@+id/btnDaily"
-            android:text="מילה יומית"
-            android:textSize="20sp"
-            android:backgroundTint="#538D4E"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="18dp"
             android:layout_width="250dp"
-            android:layout_height="60dp" />
+            android:layout_height="60dp"
+            android:layout_marginBottom="18dp"
+            android:backgroundTint="#538D4E"
+            android:text="מילה יומית"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnNewGame"
-            android:text="משחק חדש"
-            android:textSize="20sp"
-            android:backgroundTint="#B59F3B"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="18dp"
             android:layout_width="250dp"
-            android:layout_height="60dp" />
+            android:layout_height="60dp"
+            android:layout_marginBottom="18dp"
+            android:backgroundTint="#B59F3B"
+            android:text="משחק חדש"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/btnProfile"
-            android:text="פרופיל"
-            android:textSize="18sp"
-            android:backgroundTint="#3A3A3C"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="18dp"
             android:layout_width="250dp"
-            android:layout_height="55dp" />
+            android:layout_height="55dp"
+            android:layout_marginBottom="18dp"
+            android:backgroundTint="#3A3A3C"
+            android:text="פרופיל"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/btnLeaderboard"
-            android:text="טבלת מובילים"
-            android:textSize="18sp"
-            android:backgroundTint="#3A3A3C"
-            android:textColor="#FFFFFF"
             android:layout_width="250dp"
-            android:layout_height="55dp" />
+            android:layout_height="55dp"
+            android:backgroundTint="#3A3A3C"
+            android:text="טבלת מובילים"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

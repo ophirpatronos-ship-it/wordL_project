@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WordL_project">
         <activity
+            android:name=".screens.userProfile"
+            android:exported="false" />
+        <activity
+            android:name=".screens.editUser"
+            android:exported="false" />
+        <activity
             android:name=".screens.MainActivity"
             android:exported="false" />
         <activity
