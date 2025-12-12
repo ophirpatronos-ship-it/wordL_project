@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    tools:context=".screens.GameActivity"
+    android:background="#111">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WORDLE"
+        android:textColor="#FFFFFF"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp" />
+
+    <!-- BOARD (5 rows, 5 columns) -->
+    <LinearLayout
+        android:id="@+id/boardContainer"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintBottom_toTopOf="@id/keyboardContainer"
+        android:layout_marginTop="30dp">
+
+        <!-- 5 ROWS -->
+        <!-- Each row contains 5 equal tiles -->
+
+        <!-- ROW TEMPLATE -->
+
+
+        <LinearLayout
+            android:id="@+id/row1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <TextView
+                android:id="@+id/cell_0_0"
+                style="@style/Tile" />
+
+            <TextView
+                android:id="@+id/cell_0_1"
+                style="@style/Tile" />
+
+            <TextView
+                android:id="@+id/cell_0_2"
+                style="@style/Tile" />
+
+            <TextView
+                android:id="@+id/cell_0_3"
+                style="@style/Tile" />
+
+            <TextView
+                android:id="@+id/cell_0_4"
+                style="@style/Tile" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/row2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <TextView
+                android:id="@+id/cell_1_0"
+                style="@style/Tile" />
+
+            <TextView
+                android:id="@+id/cell_1_1"
+                style="@style/Tile" />
+
+            <TextView
+                android:id="@+id/cell_1_2"
+                style="@style/Tile" />
+
+            <TextView
+                android:id="@+id/cell_1_3"
+                style="@style/Tile" />
+
+            <TextView
+                android:id="@+id/cell_1_4"
+                style="@style/Tile" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/row3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <TextView
+                android:id="@+id/cell_2_0"
+                style="@style/Tile" />
+
+            <TextView
+                android:id="@+id/cell_2_1"
+                style="@style/Tile" />
+
+            <TextView
+                android:id="@+id/cell_2_2"
+                style="@style/Tile" />
+
+            <TextView
+                android:id="@+id/cell_2_3"
+                style="@style/Tile" />
+
+            <TextView
+                android:id="@+id/cell_2_4"
+                style="@style/Tile" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/row4"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <TextView
+                android:id="@+id/cell_3_0"
+                style="@style/Tile" />
+
+            <TextView
+                android:id="@+id/cell_3_1"
+                style="@style/Tile" />
+
+            <TextView
+                android:id="@+id/cell_3_2"
+                style="@style/Tile" />
+
+            <TextView
+                android:id="@+id/cell_3_3"
+                style="@style/Tile" />
+
+            <TextView
+                android:id="@+id/cell_3_4"
+                style="@style/Tile" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/row5"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <TextView
+                android:id="@+id/cell_4_0"
+                style="@style/Tile" />
+
+            <TextView
+                android:id="@+id/cell_4_1"
+                style="@style/Tile" />
+
+            <TextView
+                android:id="@+id/cell_4_2"
+                style="@style/Tile" />
+
+            <TextView
+                android:id="@+id/cell_4_3"
+                style="@style/Tile" />
+
+            <TextView
+                android:id="@+id/cell_4_4"
+                style="@style/Tile" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- KEYBOARD -->
+    <!-- Keyboard Layout for Wordle -->
+    <LinearLayout
+        android:id="@+id/keyboardContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:gravity="center"
+        android:minHeight="200dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- Row 1 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyQ"
+                android:text="Q"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyW"
+                android:text="W"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyE"
+                android:text="E"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyR"
+                android:text="R"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyT"
+                android:text="T"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyY"
+                android:text="Y"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyU"
+                android:text="U"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyI"
+                android:text="I"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyO"
+                android:text="O"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyP"
+                android:text="P"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+        </LinearLayout>
+
+        <!-- Row 2 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginBottom="4dp">
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyA"
+                android:text="A"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyS"
+                android:text="S"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyD"
+                android:text="D"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyF"
+                android:text="F"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyG"
+                android:text="G"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyH"
+                android:text="H"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyJ"
+                android:text="J"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyK"
+                android:text="K"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyL"
+                android:text="L"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+        </LinearLayout>
+
+        <!-- Row 3 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyEnter"
+                android:text="ENTER"
+                android:layout_width="60dp"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyZ"
+                android:text="Z"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyX"
+                android:text="X"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyC"
+                android:text="C"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyV"
+                android:text="V"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyB"
+                android:text="B"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyN"
+                android:text="N"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyM"
+                android:text="M"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="55dp"/>
+
+            <com.example.wordl_project.views.KeyView
+                android:id="@+id/keyDel"
+                android:text="DEL"
+                android:layout_width="60dp"
+                android:layout_height="55dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
