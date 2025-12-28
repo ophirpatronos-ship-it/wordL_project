@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gcm_defaultSenderId" translatable="false">541006322323</string>
+    <string name="google_api_key" translatable="false">AIzaSyC3u2Aez8OwE_9nW9O7egSp9Cbvlm-e_OA</string>
+    <string name="google_app_id" translatable="false">1:541006322323:android:f68607f04dfb1aedc5cb66</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyC3u2Aez8OwE_9nW9O7egSp9Cbvlm-e_OA</string>
+    <string name="google_storage_bucket" translatable="false">wordl-407a7.firebasestorage.app</string>
+    <string name="project_id" translatable="false">wordl-407a7</string>
+    <style name="Tile">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">#333</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:layout_margin">4dp</item>
+    </style>
+
+    <style name="Key">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">55dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="BigKey">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">55dp</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+</resources>
