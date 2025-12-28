@@ -1,7 +1,6 @@
 package com.example.wordl_project.models;
 
 public class User {
-
     protected String id;
     protected String username;
     protected String password;
@@ -13,7 +12,9 @@ public class User {
     protected double sucssesRate;
     protected boolean isAdmin;
 
-    public User(String id, String username, String password, String email) {
+    public User() {}
+
+    public User(String id, String username, String password, String email, String image, int score, int sucssesWordCount, int faildWordCount, double sucssesRate, boolean isAdmin) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -24,9 +25,6 @@ public class User {
         this.faildWordCount = faildWordCount;
         this.sucssesRate = sucssesRate;
         this.isAdmin = isAdmin;
-    }
-
-    public User() {
     }
 
     public String getId() {
@@ -81,9 +79,7 @@ public class User {
         return sucssesWordCount;
     }
 
-    public void setSucssesWordCount(int sucssesWordCount) {
-        this.sucssesWordCount = sucssesWordCount;
-    }
+    public void setSucssesWordCount(int sucssesWordCount) {this.sucssesWordCount = sucssesWordCount;}
 
     public int getFaildWordCount() {
         return faildWordCount;

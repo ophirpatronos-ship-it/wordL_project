@@ -13,13 +13,10 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.wordl_project.R;
 import com.example.wordl_project.utils.SharedPreferencesUtil;
 
-
 public class MainActivity extends AppCompatActivity {
-    private Button btnLogout;
-    private Button btnNewGame;
+    private Button btnLogout, btnNewGame, btnEditUser;
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
@@ -30,8 +27,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnNewGame = findViewById(R.id.btnNewGame);
-        btnNewGame.setOnClickListener(v ->
-                startActivity(new Intent(MainActivity.this, GameActivity.class)));
+        btnNewGame.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, GameActivity.class)));
+        btnEditUser = findViewById(R.id.btnProfile);
+        btnEditUser.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, editUser.class)));
         btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(v -> {
             signOut();
@@ -45,7 +43,4 @@ public class MainActivity extends AppCompatActivity {
         landingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(landingIntent);
     }
-
-
-
 }

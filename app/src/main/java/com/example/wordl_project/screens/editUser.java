@@ -13,41 +13,29 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import com.example.wordl_project.R;
 import com.example.wordl_project.models.User;
-import com.example.wordl_project.screens.dialogs.EditUserDialog;
 import com.example.wordl_project.services.DatabaseService;
 import com.example.wordl_project.utils.ImageUtil;
 import com.example.wordl_project.utils.SharedPreferencesUtil;
 
-import com.example.wordl_project.R;
-
 public class editUser extends AppCompatActivity {
-    private Button btnToMain, btnToDetailsAboutUser, btnToContact, btnToExit, btnToAdmin, btnEditUser;
-    private View separatorLine;
-    private LinearLayout topMenu;
-    private TextView txtTitle, txtFirstName, txtLastName, txtEmail, txtPassword;
+    private Button btnEditUser;
+    private TextView txtUserName, txtEmail, txtPassword, userScore, userWinRate;
     private ImageView imgUserProfile;
-    private Button btnChangePhoto;
+    private ImageButton btnChangePhoto;
 
     private static final int REQ_CAMERA = 100;
     private static final int REQ_GALLERY = 200;
 
     private User user;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,70 +47,41 @@ public class editUser extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         user = SharedPreferencesUtil.getUser(this);
 
-        topMenu = findViewById(R.id.topMenuDetailsAboutUser);
-        //משתמש מחובר
-        btnToMain = findViewById(R.id.btn_DetailsAboutUser_to_main);
-        btnToDetailsAboutUser = findViewById(R.id.btn_DetailsAboutUser_to_DetailsAboutUserPage);
-        btnToContact = findViewById(R.id.btn_DetailsAboutUser_to_contact);
-        btnToExit = findViewById(R.id.btn_DetailsAboutUser_to_exit);
-        separatorLine = findViewById(R.id.separatorLine_DetailsAboutUser);
-
-        //מנהל
-        btnToAdmin = findViewById(R.id.btn_DetailsAboutUser_to_admin);
-
-        boolean isAdmin = user.getIsAdmin();
-
-        if (isAdmin) {
-            //הופך את כפתורי המנהל ל-VISIBLE
-            btnToAdmin.setVisibility(View.VISIBLE);
-            topMenu.setVisibility(View.GONE);
-            separatorLine.setVisibility(View.GONE);
-        }
-        else {
-            //הופך את כפתורי המשתמש המחובר ל-VISIBLE
-            btnToMain.setVisibility(View.VISIBLE);
-            btnToDetailsAboutUser.setVisibility(View.VISIBLE);
-            btnToContact.setVisibility(View.VISIBLE);
-            btnToExit.setVisibility(View.VISIBLE);
-            separatorLine.setVisibility(View.VISIBLE);
-            topMenu.setVisibility(View.VISIBLE);
-        }
-
-        btnToMain.setOnClickListener(v -> startActivity(new Intent(this, MainActivity.class)));
-        btnToContact.setOnClickListener(v -> startActivity(new Intent(this, ContactActivity.class)));
-        btnToExit.setOnClickListener(v -> logout());
-        btnToAdmin.setOnClickListener(v -> startActivity(new Intent(this, AdminPageActivity.class)));
-
-        btnEditUser = findViewById(R.id.btn_DetailsAboutUser_edit_user);
+        btnEditUser = findViewById(R.id.btn_edit_profile);
         btnEditUser.setOnClickListener(v -> openEditDialog());
 
-        imgUserProfile = findViewById(R.id.img_DetailsAboutUser_user_profile);
-        btnChangePhoto = findViewById(R.id.btn_DetailsAboutUser_change_photo);
+        imgUserProfile = findViewById(R.id.iv_profile_picture);
+        btnChangePhoto = findViewById(R.id.btn_change_photo);
+
         btnChangePhoto.setOnClickListener(v -> openImagePicker());
+
         imgUserProfile.setOnClickListener(v -> {
-            if (user.getProfileImage() != null) showFullImageDialog();
+            if (user.getImage() != null && !user.getImage().isEmpty()) {
+                showFullImageDialog();
+            }
         });
 
-        txtTitle = findViewById(R.id.txt_DetailsAboutUser_title);
-        txtFirstName = findViewById(R.id.txt_DetailsAboutUser_first_name);
-        txtLastName = findViewById(R.id.txt_DetailsAboutUser_last_name);
-        txtEmail = findViewById(R.id.txt_DetailsAboutUser_email);
-        txtPassword = findViewById(R.id.txt_DetailsAboutUser_password);
+        txtUserName = findViewById(R.id.tv_user_name);
+        txtEmail = findViewById(R.id.tv_email);
+        txtPassword = findViewById(R.id.tv_password);
+        userScore = findViewById(R.id.tv_user_score);
+        userWinRate = findViewById(R.id.tv_user_win_rate);
 
         loadUserDetailsFromSharedPref();
     }
 
     private void loadUserDetailsFromSharedPref() {
-        txtTitle.setText(user.getFullName());
-        txtFirstName.setText(user.getFirstName());
-        txtLastName.setText(user.getLastName());
+        txtUserName.setText(user.getUsername());
         txtEmail.setText(user.getEmail());
         txtPassword.setText(user.getPassword());
+        userScore.setText(String.valueOf(user.getScore()));
+        userWinRate.setText(String.format("%.1f%%", user.getSucssesRate() * 100));
 
-        if (user.getProfileImage() != null && !user.getProfileImage().isEmpty()) {
-            Bitmap bmp = ImageUtil.convertFrom64base(user.getProfileImage());
+        if (user.getImage() != null && !user.getImage().isEmpty()) {
+            Bitmap bmp = ImageUtil.convertFrom64base(user.getImage());
             if (bmp != null) {
                 imgUserProfile.setImageBitmap(bmp);
             }
@@ -132,16 +91,57 @@ public class editUser extends AppCompatActivity {
     }
 
     private void openEditDialog() {
-        new EditUserDialog(this, user, () -> {
-            SharedPreferencesUtil.saveUser(DetailsAboutUserActivity.this, user);
-            loadUserDetailsFromSharedPref();
-        }).show();
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_edit_user);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        }
+
+        EditText inputUserName = dialog.findViewById(R.id.inputEditUserName);
+        EditText inputPassword = dialog.findViewById(R.id.inputEditUserPassword);
+        Button btnSave = dialog.findViewById(R.id.btnEditUserSave);
+        Button btnCancel = dialog.findViewById(R.id.btnEditUserCancel);
+
+        inputUserName.setText(user.getUsername());
+        inputPassword.setText(user.getPassword());
+
+        btnSave.setOnClickListener(v -> {
+            String uName = inputUserName.getText().toString().trim();
+            String pass = inputPassword.getText().toString().trim();
+
+            if (uName.isEmpty() || pass.isEmpty()) {
+                Toast.makeText(this, "מלא את כל השדות", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            user.setUsername(uName);
+            user.setPassword(pass);
+
+            DatabaseService.getInstance().updateUser(user, new DatabaseService.DatabaseCallback<Void>() {
+                @Override
+                public void onCompleted(Void object) {
+                    SharedPreferencesUtil.saveUser(editUser.this, user);
+                    loadUserDetailsFromSharedPref();
+                    Toast.makeText(editUser.this, "הפרטים עודכנו", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
+
+                @Override
+                public void onFailed(Exception e) {
+                    Toast.makeText(editUser.this, "שגיאה: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
+
+        btnCancel.setOnClickListener(v -> dialog.dismiss());
+        dialog.show();
     }
 
     private void openImagePicker() {
         ImageUtil.requestPermission(this);
 
-        boolean hasImage = user.getProfileImage() != null && !user.getProfileImage().isEmpty();
+        boolean hasImage = user.getImage() != null && !user.getImage().isEmpty();
 
         String[] options = hasImage
                 ? new String[]{"צלם תמונה", "בחר מהגלריה", "מחק תמונת פרופיל"}
@@ -168,20 +168,20 @@ public class editUser extends AppCompatActivity {
     }
 
     private void deleteProfileImage() {
-        user.setProfileImage(null);
+        user.setImage(null);
 
         imgUserProfile.setImageResource(R.drawable.ic_user);
 
-        databaseService.updateUser(user, new DatabaseService.DatabaseCallback<Void>() {
+        DatabaseService.getInstance().updateUser(user, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void object) {
-                SharedPreferencesUtil.saveUser(DetailsAboutUserActivity.this, user);
-                Toast.makeText(DetailsAboutUserActivity.this, "תמונת הפרופיל נמחקה", Toast.LENGTH_SHORT).show();
+                SharedPreferencesUtil.saveUser(editUser.this, user);
+                Toast.makeText(editUser.this, "תמונת הפרופיל נמחקה", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailed(Exception e) {
-                Toast.makeText(DetailsAboutUserActivity.this, "שגיאה במחיקת התמונה", Toast.LENGTH_SHORT).show();
+                Toast.makeText(editUser.this, "שגיאה במחיקת התמונה", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -211,24 +211,24 @@ public class editUser extends AppCompatActivity {
 
             //המרה ל־Base64 ושמירה
             String base64 = ImageUtil.convertTo64Base(imgUserProfile);
-            user.setProfileImage(base64);
+            user.setImage(base64);
 
             saveProfileImage();
         }
     }
 
     private void saveProfileImage() {
-        databaseService.updateUser(user, new DatabaseService.DatabaseCallback<Void>() {
+        DatabaseService.getInstance().updateUser(user, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void object) {
-                SharedPreferencesUtil.saveUser(DetailsAboutUserActivity.this, user);
+                SharedPreferencesUtil.saveUser(editUser.this, user);
 
-                Toast.makeText(DetailsAboutUserActivity.this, "תמונת הפרופיל עודכנה!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(editUser.this, "תמונת הפרופיל עודכנה!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailed(Exception e) {
-                Toast.makeText(DetailsAboutUserActivity.this, "שגיאה בעדכון התמונה: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(editUser.this, "שגיאה בעדכון התמונה: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -238,15 +238,9 @@ public class editUser extends AppCompatActivity {
         dialog.setContentView(R.layout.dialog_full_image);
 
         ImageView dialogImage = dialog.findViewById(R.id.dialogImage);
-
-        //מציב את התמונה שיש בתמונה המקורית
         dialogImage.setImageDrawable(imgUserProfile.getDrawable());
-
-        //לוחצים על התמונה - יוצא
         dialogImage.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
-    }
-}
     }
 }

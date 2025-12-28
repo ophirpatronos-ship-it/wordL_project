@@ -22,7 +22,6 @@ import com.example.wordl_project.utils.SharedPreferencesUtil;
 import com.example.wordl_project.utils.Validator;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
-
     private EditText etEmail, etPassword;
     private Button btnLogin;
 

@@ -12,10 +12,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.wordl_project.R;
+import com.example.wordl_project.utils.SharedPreferencesUtil;
 
 public class landing extends AppCompatActivity {
     Button btnLogin, btnRegister;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,14 @@ public class landing extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        if (SharedPreferencesUtil.isUserLoggedIn(this)) {
+            Intent intent = new Intent(landing.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+
         btnLogin = findViewById(R.id.btnGoToLogin);
         btnRegister = findViewById(R.id.btnGoToRegister);
 
