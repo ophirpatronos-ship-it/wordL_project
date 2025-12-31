@@ -13,6 +13,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -27,7 +28,7 @@ import com.example.wordl_project.utils.ImageUtil;
 import com.example.wordl_project.utils.SharedPreferencesUtil;
 
 public class editUser extends AppCompatActivity {
-    private Button btnEditUser;
+    private Button btnEditUser, btnhomepage;
     private TextView txtUserName, txtEmail, txtPassword, userScore, userWinRate;
     private ImageView imgUserProfile;
     private ImageButton btnChangePhoto;
@@ -52,10 +53,18 @@ public class editUser extends AppCompatActivity {
 
         btnEditUser = findViewById(R.id.btn_edit_profile);
         btnEditUser.setOnClickListener(v -> openEditDialog());
+        btnhomepage = findViewById(R.id.btnhomepage);
+        btnhomepage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(editUser.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         imgUserProfile = findViewById(R.id.iv_profile_picture);
         btnChangePhoto = findViewById(R.id.btn_change_photo);
-
         btnChangePhoto.setOnClickListener(v -> openImagePicker());
 
         imgUserProfile.setOnClickListener(v -> {
@@ -111,20 +120,23 @@ public class editUser extends AppCompatActivity {
             String pass = inputPassword.getText().toString().trim();
 
             if (uName.isEmpty() || pass.isEmpty()) {
-                Toast.makeText(this, "מלא את כל השדות", Toast.LENGTH_SHORT).show();
+                Toast.makeText(editUser.this, "מלא את כל השדות", Toast.LENGTH_SHORT).show();
                 return;
             }
 
             user.setUsername(uName);
             user.setPassword(pass);
+            btnSave.setEnabled(false);
 
             DatabaseService.getInstance().updateUser(user, new DatabaseService.DatabaseCallback<Void>() {
                 @Override
                 public void onCompleted(Void object) {
-                    SharedPreferencesUtil.saveUser(editUser.this, user);
-                    loadUserDetailsFromSharedPref();
-                    Toast.makeText(editUser.this, "הפרטים עודכנו", Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
+                    runOnUiThread(() -> {
+                        SharedPreferencesUtil.saveUser(editUser.this, user);
+                        loadUserDetailsFromSharedPref();
+                        Toast.makeText(editUser.this, "הפרטים עודכנו", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    });
                 }
 
                 @Override

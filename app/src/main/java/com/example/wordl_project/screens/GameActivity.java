@@ -61,11 +61,11 @@ public class GameActivity extends AppCompatActivity {
 
     private void setupKeyboard() {
         int[] letterIds = new int[]{
-                R.id.keyA, R.id.keyB, R.id.keyC, R.id.keyD, R.id.keyE, R.id.keyF,
-                R.id.keyG, R.id.keyH, R.id.keyI, R.id.keyJ, R.id.keyK, R.id.keyL,
-                R.id.keyM, R.id.keyN, R.id.keyO, R.id.keyP, R.id.keyQ, R.id.keyR,
-                R.id.keyS, R.id.keyT, R.id.keyU, R.id.keyV, R.id.keyW, R.id.keyX,
-                R.id.keyY, R.id.keyZ
+                R.id.ש, R.id.keyנ, R.id.keyב, R.id.keyג, R.id.keyק, R.id.keyכ,
+                R.id.keyע, R.id.keyי, R.id.keyן, R.id.keyח, R.id.keyל, R.id.keyך,
+                R.id.keyצ, R.id.keyמ, R.id.keyם, R.id.keyפ, R.id.keyת, R.id.keyר,
+                R.id.keyד, R.id.keyא, R.id.keyו, R.id.keyה, R.id.keyף, R.id.keyס,
+                R.id.keyט, R.id.keyז
         };
 
         for (int i = 0; i < letterIds.length; i++) {
