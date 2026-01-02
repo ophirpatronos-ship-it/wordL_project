@@ -3,6 +3,7 @@ package com.example.wordl_project.screens;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,33 +16,49 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.wordl_project.R;
 import com.example.wordl_project.views.KeyView;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
 
 
-    private String targetWord = "APPLE"; // change if you want
+    private String targetWord;
     private int currentRow = 0;
     private int currentCol = 0;
 
     private LinearLayout[] rows = new LinearLayout[5];
     private TextView[][] cells = new TextView[5][5];
-
+    private Button btnmain;
     private StringBuilder currentGuess = new StringBuilder();
+    private List<String> wordsList;
+
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_game);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
+        // שליפת המערך מה-strings.xml
+//        String[] wordsArray = getResources().getStringArray(R.array.hebrew_words);
+//        wordsList = new ArrayList<>(Arrays.asList(wordsArray));
+
+        // בחירת מילה רנדומלית להתחלת המשחק
+        chooseRandomWord();
+        // חובה לקרוא לפונקציות האלו כדי שהמשחק יתחיל לעבוד!
         setupGrid();
         setupKeyboard();
+    }
+
+    private void chooseRandomWord() {
+        if (!wordsList.isEmpty()) {
+            Random random = new Random();
+            targetWord = wordsList.get(random.nextInt(wordsList.size()));
+        }
     }
 
 
@@ -58,6 +75,8 @@ public class GameActivity extends AppCompatActivity {
             }
         }
     }
+
+
 
     private void setupKeyboard() {
         int[] letterIds = new int[]{
@@ -105,6 +124,7 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+
     private void deleteLetter() {
         if (currentCol > 0) {
             currentCol--;
@@ -150,5 +170,7 @@ public class GameActivity extends AppCompatActivity {
             }
         }
     }
+
+
 }
 

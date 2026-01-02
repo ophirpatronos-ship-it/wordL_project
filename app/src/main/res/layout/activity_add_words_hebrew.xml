@@ -1,200 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    tools:context=".screens.GameActivity"
-    android:background="#111">
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center_horizontal"
+    android:background="#F5F5F5"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    <!-- Title -->
+    >
+
     <TextView
-        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="WORDLE"
-        android:textColor="#FFFFFF"
-        android:textSize="32sp"
+        android:text="ניהול מילים למשחק"
+        android:textSize="28sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="40dp" />
+        android:textColor="#333333"
+        android:layout_marginBottom="32dp"/>
 
-    <!-- BOARD (5 rows, 5 columns) -->
     <LinearLayout
-        android:id="@+id/boardContainer"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/title"
-        app:layout_constraintBottom_toTopOf="@id/keyboardContainer"
-        android:layout_marginTop="30dp">
+        android:background="@android:color/white"
+        android:padding="16dp"
+        android:elevation="4dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="הכנס מילה חדשה:"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp"/>
 
-        <!-- 5 ROWS -->
-        <!-- Each row contains 5 equal tiles -->
-
-        <!-- ROW TEMPLATE -->
-
-
-        <LinearLayout
-            android:id="@+id/row1"
+        <EditText
+            android:id="@+id/editTextNewWord"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:layoutDirection="rtl"  android:padding="4dp">
+            android:layout_height="50dp"
+            android:hint="למשל: תפוח"
+            android:inputType="text"
+            android:padding="10dp"
+            android:background="@android:drawable/edit_text"/>
 
-            <TextView
-                android:id="@+id/cell_0_0"
-                style="@style/Tile" />
-
-            <TextView
-                android:id="@+id/cell_0_1"
-                style="@style/Tile" />
-
-            <TextView
-                android:id="@+id/cell_0_2"
-                style="@style/Tile" />
-
-            <TextView
-                android:id="@+id/cell_0_3"
-                style="@style/Tile" />
-
-            <TextView
-                android:id="@+id/cell_0_4"
-                style="@style/Tile" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/row2"
+        <Button
+            android:id="@+id/btnAddWord"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="4dp"
-            android:layoutDirection="rtl" >
-
-            <TextView
-                android:id="@+id/cell_1_0"
-                style="@style/Tile" />
-
-            <TextView
-                android:id="@+id/cell_1_1"
-                style="@style/Tile" />
-
-            <TextView
-                android:id="@+id/cell_1_2"
-                style="@style/Tile" />
-
-            <TextView
-                android:id="@+id/cell_1_3"
-                style="@style/Tile" />
-
-            <TextView
-                android:id="@+id/cell_1_4"
-                style="@style/Tile" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/row3"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="4dp"
-            android:layoutDirection="rtl" >
-
-            <TextView
-                android:id="@+id/cell_2_0"
-                style="@style/Tile" />
-
-            <TextView
-                android:id="@+id/cell_2_1"
-                style="@style/Tile" />
-
-            <TextView
-                android:id="@+id/cell_2_2"
-                style="@style/Tile" />
-
-            <TextView
-                android:id="@+id/cell_2_3"
-                style="@style/Tile" />
-
-            <TextView
-                android:id="@+id/cell_2_4"
-                style="@style/Tile" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/row4"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="4dp"
-            android:layoutDirection="rtl" >
-
-            <TextView
-                android:id="@+id/cell_3_0"
-                style="@style/Tile" />
-
-            <TextView
-                android:id="@+id/cell_3_1"
-                style="@style/Tile" />
-
-            <TextView
-                android:id="@+id/cell_3_2"
-                style="@style/Tile" />
-
-            <TextView
-                android:id="@+id/cell_3_3"
-                style="@style/Tile" />
-
-            <TextView
-                android:id="@+id/cell_3_4"
-                style="@style/Tile" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/row5"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="4dp"
-            android:layoutDirection="rtl" >
-
-            <TextView
-                android:id="@+id/cell_4_0"
-                style="@style/Tile" />
-
-            <TextView
-                android:id="@+id/cell_4_1"
-                style="@style/Tile" />
-
-            <TextView
-                android:id="@+id/cell_4_2"
-                style="@style/Tile" />
-
-            <TextView
-                android:id="@+id/cell_4_3"
-                style="@style/Tile" />
-
-            <TextView
-                android:id="@+id/cell_4_4"
-                style="@style/Tile" />
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="הוסף לרשימה"
+            android:backgroundTint="#4CAF50"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="18sp"/>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text=""
+        android:textColor="#757575"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="מילים קיימות:"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewWords"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@android:color/white"
+        android:padding="8dp"
+        android:elevation="2dp"/>
+
+
 
     <!-- KEYBOARD -->
     <!-- Keyboard Layout for Wordle -->
@@ -428,17 +316,5 @@
                 android:text="DEL" />
         </LinearLayout>
 
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/btnmain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text=" לדף הראשי"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
+</LinearLayout>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +13,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.wordl_project.R;
+import com.example.wordl_project.services.DatabaseService;
 import com.example.wordl_project.utils.SharedPreferencesUtil;
+
+import java.util.List;
 
 public class landing extends AppCompatActivity {
     Button btnLogin, btnRegister;
@@ -26,6 +30,34 @@ public class landing extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        DatabaseService.getInstance().createNewHebrewWord("שולחן", new DatabaseService.DatabaseCallback<Void>() {
+            @Override
+            public void onCompleted(Void object) {
+
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+
+            }
+        });
+
+        DatabaseService.getInstance().getHebrewWordList(new DatabaseService.DatabaseCallback<List<String>>() {
+            @Override
+            public void onCompleted(List<String> words) {
+                for (String word : words) {
+                    Toast.makeText(landing.this, word, Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+
+            }
         });
 
         if (SharedPreferencesUtil.isUserLoggedIn(this)) {

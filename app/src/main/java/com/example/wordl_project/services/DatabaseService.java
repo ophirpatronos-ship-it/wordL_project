@@ -32,8 +32,8 @@ public class DatabaseService {
     /// paths for different data types in the database
     /// @see DatabaseService#readData(String)
     private static final String USERS_PATH = "users",
-            FOODS_PATH = "foods",
-            CARTS_PATH = "carts";
+            WORDS_HEBREW_PATH = "מילים",
+            WORDS_ENGLISH_PATH = "words";
 
     /// callback interface for database operations
     /// @param <T> the type of the object to return
@@ -156,6 +156,18 @@ public class DatabaseService {
             });
 
             callback.onCompleted(tList);
+        });
+    }
+
+    private <T> void pushData(@NotNull final String path, T data, @NotNull final DatabaseCallback<Void> callback) {
+        readData(path).push().setValue(data, (error, ref) -> {
+            if (error != null) {
+                if (callback == null) return;
+                callback.onFailed(error.toException());
+            } else {
+                if (callback == null) return;
+                callback.onCompleted(null);
+            }
         });
     }
 
@@ -331,5 +343,18 @@ public class DatabaseService {
 
 
     // endregion User Section
+
+
+    // region words
+
+    public void createNewHebrewWord(@NotNull final String word, @Nullable final DatabaseCallback<Void> callback) {
+        pushData(WORDS_HEBREW_PATH, word, callback);
+    }
+
+    public void getHebrewWordList(@NotNull final DatabaseCallback<List<String>> callback) {
+        getDataList(WORDS_HEBREW_PATH, String.class, callback);
+    }
+
+    // endregion words
 
 }

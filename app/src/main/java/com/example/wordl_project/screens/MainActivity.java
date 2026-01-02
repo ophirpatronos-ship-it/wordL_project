@@ -14,7 +14,7 @@ import com.example.wordl_project.R;
 import com.example.wordl_project.utils.SharedPreferencesUtil;
 
 public class MainActivity extends AppCompatActivity {
-    private Button btnLogout, btnNewGame, btnEditUser;
+    private Button btnLogout, btnNewGame, btnEditUser, btnAddHebrew;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        btnAddHebrew = findViewById(R.id.btnAddHebrew);
+        btnAddHebrew.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, AddWordsHebrew.class)));
         btnNewGame = findViewById(R.id.btnNewGame);
         btnNewGame.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, GameActivity.class)));
         btnEditUser = findViewById(R.id.btnProfile);
