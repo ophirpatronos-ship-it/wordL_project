@@ -32,33 +32,6 @@ public class landing extends AppCompatActivity {
             return insets;
         });
 
-        DatabaseService.getInstance().createNewHebrewWord("שולחן", new DatabaseService.DatabaseCallback<Void>() {
-            @Override
-            public void onCompleted(Void object) {
-
-            }
-
-            @Override
-            public void onFailed(Exception e) {
-
-            }
-        });
-
-        DatabaseService.getInstance().getHebrewWordList(new DatabaseService.DatabaseCallback<List<String>>() {
-            @Override
-            public void onCompleted(List<String> words) {
-                for (String word : words) {
-                    Toast.makeText(landing.this, word, Toast.LENGTH_SHORT).show();
-                }
-
-
-            }
-
-            @Override
-            public void onFailed(Exception e) {
-
-            }
-        });
 
         if (SharedPreferencesUtil.isUserLoggedIn(this)) {
             Intent intent = new Intent(landing.this, MainActivity.class);

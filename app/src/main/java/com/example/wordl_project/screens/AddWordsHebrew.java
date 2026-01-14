@@ -1,10 +1,12 @@
 package com.example.wordl_project.screens;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wordl_project.R;
+import com.example.wordl_project.adapters.WordAdapter;
+import com.example.wordl_project.models.StringWrapper;
 import com.example.wordl_project.services.DatabaseService;
 import com.example.wordl_project.views.KeyView;
 
@@ -28,7 +32,6 @@ public class AddWordsHebrew extends AppCompatActivity {
     private Button btnAddWord;
     private RecyclerView recyclerViewWords;
     private WordAdapter adapter;
-    private List<String> wordsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,17 @@ public class AddWordsHebrew extends AppCompatActivity {
 
         // הגדרת ה-RecyclerView
         recyclerViewWords.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new WordAdapter(wordsList);
+        adapter = new WordAdapter(new WordAdapter.OnWordClickListener() {
+            @Override
+            public void onWordClick(StringWrapper word) {
+                deleteWordFromDatabase(word);
+            }
+
+            @Override
+            public void onLongWordClick(StringWrapper word) {
+
+            }
+        });
         recyclerViewWords.setAdapter(adapter);
 
         // טעינת רשימת המילים הקיימת
@@ -62,7 +75,9 @@ public class AddWordsHebrew extends AppCompatActivity {
 
 
     private void saveWord(String word) {
-        DatabaseService.getInstance().createNewHebrewWord(word, new DatabaseService.DatabaseCallback<Void>() {
+        String id = DatabaseService.getInstance().generateHebrewWordId();
+        StringWrapper stringWrapper = new StringWrapper(id, word);
+        DatabaseService.getInstance().createNewHebrewWord(stringWrapper, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void object) {
                 Toast.makeText(AddWordsHebrew.this, "המילה נוספה!", Toast.LENGTH_SHORT).show();
@@ -78,12 +93,10 @@ public class AddWordsHebrew extends AppCompatActivity {
     }
 
     private void loadWords() {
-        DatabaseService.getInstance().getHebrewWordList(new DatabaseService.DatabaseCallback<List<String>>() {
+        DatabaseService.getInstance().getHebrewWordList(new DatabaseService.DatabaseCallback<List<StringWrapper>>() {
             @Override
-            public void onCompleted(List<String> words) {
-                wordsList.clear();
-                wordsList.addAll(words);
-                adapter.notifyDataSetChanged();
+            public void onCompleted(List<StringWrapper> words) {
+                adapter.setWordList(words);
             }
 
             @Override
@@ -93,51 +106,34 @@ public class AddWordsHebrew extends AppCompatActivity {
         });
     }
 
-    // --- האדפטר הפנימי של ה-RecyclerView ---
-    private class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder> {
-        private List<String> list;
-
-        public WordAdapter(List<String> list) { this.list = list; }
-
-        @NonNull
-        @Override
-        public WordViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            // יצירת שורה (ניתן להשתמש ב-layout פשוט של אנדרואיד או ליצור XML משלך)
-            View view = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
-            return new WordViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull WordViewHolder holder, int position) {
-            holder.textView.setText(list.get(position));
-        }
-
-        @Override
-        public int getItemCount() { return list.size(); }
-
-        class WordViewHolder extends RecyclerView.ViewHolder {
-            TextView textView;
-            public WordViewHolder(@NonNull View itemView) {
-                super(itemView);
-                textView = itemView.findViewById(android.R.id.text1);
+    private void deleteWordFromDatabase(StringWrapper wordToDelete) {
+        // אנחנו ניגשים ל-Firebase, מחפשים את המילה ומוחקים אותה
+        DatabaseService.getInstance().removeHebrewWord(wordToDelete, new DatabaseService.DatabaseCallback<Void>() {
+            @Override
+            public void onCompleted(Void v) {
+                Toast.makeText(AddWordsHebrew.this, "המילה '" + wordToDelete + "' נמחקה", Toast.LENGTH_SHORT).show();
+                loadWords();
             }
+
+            @Override
+            public void onFailed(Exception e) {
+
+            }
+        });
+    }
+
+
+    public void hideKeyboard(View view) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
-    private void setupKeyboard() {
-        int[] letterIds = new int[]{
-                R.id.ש, R.id.keyנ, R.id.keyב, R.id.keyג, R.id.keyק, R.id.keyכ,
-                R.id.keyע, R.id.keyי, R.id.keyן, R.id.keyח, R.id.keyל, R.id.keyך,
-                R.id.keyצ, R.id.keyמ, R.id.keyם, R.id.keyפ, R.id.keyת, R.id.keyר,
-                R.id.keyד, R.id.keyא, R.id.keyו, R.id.keyה, R.id.keyף, R.id.keyס,
-                R.id.keyט, R.id.keyז
-        };
-
-        for (int i = 0; i < letterIds.length; i++) {
-            KeyView b = findViewById(letterIds[i]);
-            final String letter = b.getText().toString().trim();
-
-
+    public void showKeyboard(EditText editText) {
+        editText.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null) {
+            imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
         }
     }
-    
 }

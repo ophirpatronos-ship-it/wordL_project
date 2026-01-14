@@ -12,9 +12,12 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.wordl_project.R;
 import com.example.wordl_project.utils.SharedPreferencesUtil;
+import android.widget.Button;
+
 
 public class MainActivity extends AppCompatActivity {
-    private Button btnLogout, btnNewGame, btnEditUser, btnAddHebrew;
+    private Button btnLogout, btnNewGame, btnEditUser, btnGameEdit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,10 +28,11 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        btnAddHebrew = findViewById(R.id.btnAddHebrew);
-        btnAddHebrew.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, AddWordsHebrew.class)));
+
         btnNewGame = findViewById(R.id.btnNewGame);
         btnNewGame.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, GameActivity.class)));
+        btnGameEdit = findViewById(R.id.btnGameEdit);
+        btnGameEdit.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, GameEdit.class)));
         btnEditUser = findViewById(R.id.btnProfile);
         btnEditUser.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, editUser.class)));
         btnLogout = findViewById(R.id.btnLogout);
@@ -44,4 +48,9 @@ public class MainActivity extends AppCompatActivity {
         landingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(landingIntent);
     }
+
+
+
+
+
 }

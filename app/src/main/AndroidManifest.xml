@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WordL_project">
         <activity
+            android:name=".screens.HebrewDeleatWords"
+            android:exported="false" />
+        <activity
+            android:name=".screens.GameEdit"
+            android:exported="false" />
+        <activity
             android:name=".screens.AddWordsHebrew"
             android:exported="false" />
         <activity

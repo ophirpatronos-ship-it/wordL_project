@@ -4,6 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.wordl_project.models.StringWrapper;
 import com.example.wordl_project.models.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,7 +16,10 @@ import com.google.firebase.database.annotations.NotNull;
 import com.google.firebase.database.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.UnaryOperator;
 
@@ -347,12 +351,19 @@ public class DatabaseService {
 
     // region words
 
-    public void createNewHebrewWord(@NotNull final String word, @Nullable final DatabaseCallback<Void> callback) {
-        pushData(WORDS_HEBREW_PATH, word, callback);
+    public String generateHebrewWordId() {
+        return generateNewId(WORDS_HEBREW_PATH);
+    }
+    public void createNewHebrewWord(@NotNull final StringWrapper word, @Nullable final DatabaseCallback<Void> callback) {
+        writeData(WORDS_HEBREW_PATH+"/"+word.getId(), word, callback);
     }
 
-    public void getHebrewWordList(@NotNull final DatabaseCallback<List<String>> callback) {
-        getDataList(WORDS_HEBREW_PATH, String.class, callback);
+    public void getHebrewWordList(@NotNull final DatabaseCallback<List<StringWrapper>> callback) {
+        getDataList(WORDS_HEBREW_PATH, StringWrapper.class, callback);
+    }
+
+    public void removeHebrewWord(@NotNull final StringWrapper word, @Nullable final DatabaseCallback<Void> callback) {
+        deleteData(WORDS_HEBREW_PATH+"/"+word.getId(), callback);
     }
 
     // endregion words

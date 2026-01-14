@@ -8,17 +8,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.wordl_project.R;
+import com.example.wordl_project.models.StringWrapper;
+import com.example.wordl_project.services.DatabaseService;
 import com.example.wordl_project.views.KeyView;
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -33,7 +30,7 @@ public class GameActivity extends AppCompatActivity {
     private TextView[][] cells = new TextView[5][5];
     private Button btnmain;
     private StringBuilder currentGuess = new StringBuilder();
-    private List<String> wordsList;
+    private List<StringWrapper> wordsList = new ArrayList<>();
 
 
 
@@ -42,22 +39,36 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+    }
 
-        // שליפת המערך מה-strings.xml
-//        String[] wordsArray = getResources().getStringArray(R.array.hebrew_words);
-//        wordsList = new ArrayList<>(Arrays.asList(wordsArray));
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-        // בחירת מילה רנדומלית להתחלת המשחק
-        chooseRandomWord();
-        // חובה לקרוא לפונקציות האלו כדי שהמשחק יתחיל לעבוד!
-        setupGrid();
-        setupKeyboard();
+        DatabaseService.getInstance().getHebrewWordList(new DatabaseService.DatabaseCallback<List<StringWrapper>>() {
+            @Override
+            public void onCompleted(List<StringWrapper> words) {
+                wordsList.clear();
+                wordsList.addAll(words);
+
+                // בחירת מילה רנדומלית להתחלת המשחק
+                chooseRandomWord();
+                // חובה לקרוא לפונקציות האלו כדי שהמשחק יתחיל לעבוד!
+                setupGrid();
+                setupKeyboard();
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+
+            }
+        });
     }
 
     private void chooseRandomWord() {
         if (!wordsList.isEmpty()) {
             Random random = new Random();
-            targetWord = wordsList.get(random.nextInt(wordsList.size()));
+            targetWord = wordsList.get(random.nextInt(wordsList.size())).getText();
         }
     }
 
