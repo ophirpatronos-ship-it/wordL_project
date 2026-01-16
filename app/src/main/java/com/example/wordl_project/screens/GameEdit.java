@@ -27,6 +27,5 @@ public class GameEdit extends AppCompatActivity {
         });
         Button btnAddHebrew = findViewById(R.id.btnAddHebrew);
         btnAddHebrew.setOnClickListener(v -> startActivity(new Intent(GameEdit.this, AddWordsHebrew.class)));
-        Button btnDellHebrew = findViewById(R.id.btnDellHebrew);
-        btnDellHebrew.setOnClickListener(v -> startActivity(new Intent(GameEdit.this, AddWordsHebrew.class)));
+
 }}

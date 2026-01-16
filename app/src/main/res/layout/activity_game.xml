@@ -263,14 +263,14 @@
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="ן" />
+                android:text="ו" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyן"
-                android:text="I"
                 android:layout_width="0dp"
+                android:layout_height="55dp"
                 android:layout_weight="1"
-                android:layout_height="55dp"/>
+                android:text="ן" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyם"
@@ -296,7 +296,7 @@
             android:layout_marginBottom="4dp">
 
             <com.example.wordl_project.views.KeyView
-                android:id="@+id/ש"
+                android:id="@+id/keyש"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
@@ -430,15 +430,17 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnmain"
+    <Chronometer
+        android:id="@+id/gameStopwatch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text=" לדף הראשי"
+        android:layout_gravity="center"
+        android:padding="16dp"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

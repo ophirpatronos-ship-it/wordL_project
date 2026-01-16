@@ -1,6 +1,7 @@
 package com.example.wordl_project.screens;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,7 +30,7 @@ import java.util.List;
 public class AddWordsHebrew extends AppCompatActivity {
 
     private EditText editTextNewWord;
-    private Button btnAddWord;
+    private Button btnAddWord, btnHomePage;
     private RecyclerView recyclerViewWords;
     private WordAdapter adapter;
 
@@ -42,6 +43,8 @@ public class AddWordsHebrew extends AppCompatActivity {
         editTextNewWord = findViewById(R.id.editTextNewWord);
         btnAddWord = findViewById(R.id.btnAddWord);
         recyclerViewWords = findViewById(R.id.recyclerViewWords);
+        btnHomePage = findViewById(R.id.btnHomePage);
+        btnHomePage.setOnClickListener(v -> startActivity(new Intent(AddWordsHebrew.this, MainActivity.class)));
 
         // הגדרת ה-RecyclerView
         recyclerViewWords.setLayoutManager(new LinearLayoutManager(this));
@@ -136,4 +139,5 @@ public class AddWordsHebrew extends AppCompatActivity {
             imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
         }
     }
+
 }

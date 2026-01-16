@@ -82,6 +82,12 @@
         android:elevation="2dp"
         android:padding="8dp" />
 
+    <Button
+        android:id="@+id/btnHomePage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#B59F3B"
+        android:text="חזרה לדף הבית" />
 
 
 </LinearLayout>

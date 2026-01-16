@@ -20,36 +20,13 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/btnDellHebrew"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="16dp"
-        android:layout_weight="1"
-        android:backgroundTint="#FFEB3B"
-        android:text="מחיקת מילים בעברית"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <Button
         android:id="@+id/btnAddEnglish"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="16dp"
         android:layout_weight="1"
-        android:backgroundTint="#4CAF50"
+        android:backgroundTint="#B59F3B"
         android:text="הוספת מילים באנגלית"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/btnDellEnglish"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:backgroundTint="#FFEB3B"
-        android:text="מחיקת מילים באגלית"
         android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold" />
