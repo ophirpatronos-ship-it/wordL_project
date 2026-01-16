@@ -12,8 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WordL_project">
         <activity
-            android:name=".screens.HebrewDeleatWords"
+            android:name=".screens.landing"
             android:exported="false" />
+
         <activity
             android:name=".screens.GameEdit"
             android:exported="false" />
@@ -36,7 +37,7 @@
             android:name=".screens.SignUp"
             android:exported="false" />
         <activity
-            android:name=".screens.landing"
+            android:name=".screens.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
