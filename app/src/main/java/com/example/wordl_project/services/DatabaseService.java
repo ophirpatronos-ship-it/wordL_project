@@ -15,6 +15,7 @@ import com.google.firebase.database.Transaction;
 import com.google.firebase.database.annotations.NotNull;
 import com.google.firebase.database.annotations.Nullable;
 
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -367,5 +368,17 @@ public class DatabaseService {
     }
 
     // endregion words
-
+    // בתוך DatabaseService.java
+    public void updatePlayerScore(int pointsToAdd) {
+//        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(userId).child("score");
+//
+//        userRef.get().addOnCompleteListener(task -> {
+//            if (task.isSuccessful()) {
+//                // קבלת הניקוד הנוכחי והוספת הנקודות החדשות
+//                Integer currentScore = task.getResult().getValue(Integer.class);
+//                if (currentScore == null) currentScore = 0;
+//                userRef.setValue(currentScore + pointsToAdd);
+//            }
+//        });
+    }
 }

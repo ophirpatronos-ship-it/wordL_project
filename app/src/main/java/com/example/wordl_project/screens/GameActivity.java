@@ -161,72 +161,71 @@ public class GameActivity extends AppCompatActivity {
             currentGuess.deleteCharAt(currentGuess.length() - 1);
         }
     }
-    private void showGameOverDialog(boolean isWin, String timeSpent) {
-        // יצירת הדיאלוג
+    private void showGameOverDialog(boolean isWin, String timeSpent, int score) {
         android.app.Dialog dialog = new android.app.Dialog(this);
         dialog.setContentView(R.layout.custom_dialog_layout);
 
-        // הפיכת רקע הדיאלוג המקורי לשקוף (כדי שיראו את הפינות המעוגלות שלנו)
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         }
 
-        // קישור רכיבי ה-UI מה-Layout החדש
         TextView title = dialog.findViewById(R.id.dialogTitle);
         TextView message = dialog.findViewById(R.id.dialogMessage);
         Button btnRestart = dialog.findViewById(R.id.btnRestart);
         Button btnExit = dialog.findViewById(R.id.btnExit);
 
-        // התאמת התוכן לפי ניצחון/הפסד
         if (isWin) {
             title.setText("כל הכבוד! 🏆");
-            title.setTextColor(Color.parseColor("#4CAF50")); // ירוק
-            message.setText("ניצחת תוך " + timeSpent + " שניות! המילה היא: " + targetWord);
+            title.setTextColor(Color.parseColor("#4CAF50"));
+            // הצגת הניקוד והזמן בתוך הדיאלוג
+            message.setText("ניצחת תוך " + timeSpent + "!\n" +
+                    "ניקוד סופי: " + score + "\n" +
+                    "המילה היא: " + targetWord);
         } else {
             title.setText("לא נורא :( 💔");
-            title.setTextColor(Color.parseColor("#E94560")); // אדום-ורוד
+            title.setTextColor(Color.parseColor("#E94560"));
             message.setText("נגמרו הניסיונות. המילה הייתה: " + targetWord);
         }
 
-        // הגדרת כפתורים
-        btnRestart.setOnClickListener(v -> {
-            dialog.dismiss();
-            recreate();
-        });
-
-        btnExit.setOnClickListener(v -> {
-            dialog.dismiss();
-            finish();
-        });
+        btnRestart.setOnClickListener(v -> { dialog.dismiss(); recreate(); });
+        btnExit.setOnClickListener(v -> { dialog.dismiss(); finish(); });
 
         dialog.setCancelable(false);
         dialog.show();
     }
-
     private void submitWord() {
         if (currentGuess.length() != 5) {
             Toast.makeText(this, "המילה חייבת להיות בת 5 אותיות!", Toast.LENGTH_SHORT).show();
             return;
         }
+        int finalScore;
 
         String guess = currentGuess.toString();
         checkWord(guess);
-        String timeSpent = null;
+        DatabaseService.getInstance().updatePlayerScore(finalScore);
+
+        showGameOverDialog(true, gameStopwatch.getText().toString(), finalScore);
+        return;
+        // חישוב הזמן שעבר בשניות מתוך ה-Chronometer
+        long elapsedMillis = android.os.SystemClock.elapsedRealtime() - gameStopwatch.getBase();
+        long secondsElapsed = elapsedMillis / 1000;
+        String timeString = gameStopwatch.getText().toString();
+
         // מקרה של ניצחון
         if (guess.equals(targetWord)) {
-            gameStopwatch.stop(); // עוצר את השעון
-            timeSpent = gameStopwatch.getText().toString();
-            showGameOverDialog(true, timeSpent); // מעביר את הזמן לדיאלוג
-            return;
-        }
-
-
-        if (currentRow+1 == 5) {
             gameStopwatch.stop();
-            timeSpent = gameStopwatch.getText().toString();
-            showGameOverDialog(false, timeSpent);
+            finalScore = calculateScore(currentRow, secondsElapsed); // חישוב הניקוד
+            showGameOverDialog(true, timeString, finalScore);
             return;
         }
+
+        // מקרה של הפסד
+        if (currentRow + 1 == 5) {
+            gameStopwatch.stop();
+            showGameOverDialog(false, timeString, 0);
+            return;
+        }
+
         currentRow++;
         currentCol = 0;
         currentGuess.setLength(0);
@@ -239,39 +238,48 @@ public class GameActivity extends AppCompatActivity {
     final int gray = Color.parseColor("#9E9E9E");
 
     private void checkWord(String guess) {
-        // מערך כדי לעקוב אחרי אותיות במילת המטרה שכבר "השתמשנו" בהן לצורך צביעה ירוקה
-        // זה מונע מצב שבו אות תצבע בצהוב למרות שהיא כבר נמצאה כירוקה במקום אחר
+        boolean[] targetUsed = new boolean[5];
+        int[] colors = new int[5];
 
-        Log.d(TAG, "checkWord: " + guess);
-
+        // שלב 1: זיהוי ירוקים
         for (int i = 0; i < 5; i++) {
-            char letter = guess.charAt(i);
-            Log.d(TAG, "checkWord letter: " + letter);
-
-            int color;
-            if (letter == targetWord.charAt(i)) {
-                color = green;
-            } else if (targetWord.contains(letter+"")) {
-                color = yellow; // צהוב
+            if (guess.charAt(i) == targetWord.charAt(i)) {
+                colors[i] = green;
+                targetUsed[i] = true;
             } else {
-                color = gray; // אפור
+                colors[i] = -1;
             }
+        }
 
-            Log.d(TAG, "checkWord color: " + color);
+        // שלב 2: זיהוי צהובים ואפורים
+        for (int i = 0; i < 5; i++) {
+            if (colors[i] == -1) {
+                char g = guess.charAt(i);
+                boolean found = false;
+                for (int j = 0; j < 5; j++) {
+                    if (!targetUsed[j] && g == targetWord.charAt(j)) {
+                        colors[i] = yellow;
+                        targetUsed[j] = true;
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) colors[i] = gray;
+            }
+        }
 
-
-            KeyView key = keyboardMap.get(String.valueOf(letter));
-            if (key == null) continue;
-
-            updateKeyboardColor(key, color);
-
+        // שלב 3: עדכון UI
+        for (int i = 0; i < 5; i++) {
             TextView cell = cells[currentRow][i];
+            String letter = String.valueOf(guess.charAt(i));
 
-            // צביעת התא בלוח
-            cell.setBackgroundColor(color);
-            cell.setTextColor(Color.WHITE); // מומלץ להוסיף כדי שהטקסט יהיה קריא
-            Log.d(TAG, "checkWord cell: " + cell.getText().toString());
+            cell.getBackground().setTint(colors[i]); // שומר על צורה מעוגלת
+            cell.setTextColor(Color.WHITE);
 
+            KeyView key = keyboardMap.get(letter);
+            if (key != null) {
+                updateKeyboardColor(key, colors[i]);
+            }
         }
     }
 
@@ -299,6 +307,26 @@ public class GameActivity extends AppCompatActivity {
         return false;
     }
     private Chronometer gameStopwatch;
+    private int calculateScore(int row, long secondsElapsed) {
+        int score = 0;
+
+        // ניקוד לפי מספר ניסיון (currentRow מתחיל מ-0)
+        switch (row) {
+            case 0: score = 1000; break; // ניסיון 1
+            case 1: score = 300;  break; // ניסיון 2
+            case 2: score = 150;  break; // ניסיון 3
+            case 3: score = 100;  break; // ניסיון 4
+            case 4: score = 50;   break; // ניסיון 5
+            default: score = 0;
+        }
+
+        // בונוס זמן: פחות מדקה (60 שניות) מקנה פי 1.5
+        if (secondsElapsed < 60 && score > 0) {
+            score = (int) (score * 1.5);
+        }
+
+        return score;
+    }
 
 
 
