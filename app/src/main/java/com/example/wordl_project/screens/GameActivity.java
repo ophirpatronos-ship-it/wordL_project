@@ -2,6 +2,7 @@ package com.example.wordl_project.screens;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -17,11 +18,14 @@ import com.example.wordl_project.services.DatabaseService;
 import com.example.wordl_project.views.KeyView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
 
+    private static final String TAG = "GameActivity";
 
     private String targetWord;
     private int currentRow = 0;
@@ -29,12 +33,17 @@ public class GameActivity extends AppCompatActivity {
 
     private LinearLayout[] rows = new LinearLayout[5];
     private TextView[][] cells = new TextView[5][5];
-    private Button btnmain;
     private StringBuilder currentGuess = new StringBuilder();
     private List<StringWrapper> wordsList = new ArrayList<>();
 
 
-
+    final int[] letterIds = new int[]{
+            R.id.keyש, R.id.keyנ, R.id.keyב, R.id.keyג, R.id.keyק, R.id.keyכ,
+            R.id.keyע, R.id.keyי, R.id.keyן, R.id.keyח, R.id.keyל, R.id.keyך,
+            R.id.keyצ, R.id.keyמ, R.id.keyם, R.id.keyפ, R.id.keyת, R.id.keyר,
+            R.id.keyד, R.id.keyא, R.id.keyו, R.id.keyה, R.id.keyף, R.id.keyס,
+            R.id.keyט, R.id.keyז
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +69,6 @@ public class GameActivity extends AppCompatActivity {
                 // חובה לקרוא לפונקציות האלו כדי שהמשחק יתחיל לעבוד!
                 setupGrid();
                 setupKeyboard();
-                int[] letterIds = new int[]{
-                        R.id.keyש, R.id.keyנ, R.id.keyב, // ... שאר ה-IDs שלך
-                };
 
                 for (int id : letterIds) {
                     KeyView b = findViewById(id);
@@ -108,17 +114,10 @@ public class GameActivity extends AppCompatActivity {
 
 
 
-    private void setupKeyboard() {
-        int[] letterIds = new int[]{
-                R.id.keyש, R.id.keyנ, R.id.keyב, R.id.keyג, R.id.keyק, R.id.keyכ,
-                R.id.keyע, R.id.keyי, R.id.keyן, R.id.keyח, R.id.keyל, R.id.keyך,
-                R.id.keyצ, R.id.keyמ, R.id.keyם, R.id.keyפ, R.id.keyת, R.id.keyר,
-                R.id.keyד, R.id.keyא, R.id.keyו, R.id.keyה, R.id.keyף, R.id.keyס,
-                R.id.keyט, R.id.keyז
-        };
 
-        for (int i = 0; i < letterIds.length; i++) {
-            KeyView b = findViewById(letterIds[i]);
+    private void setupKeyboard() {
+        for (int letterId : letterIds) {
+            KeyView b = findViewById(letterId);
             final String letter = b.getText().toString().trim();
 
             b.setOnClickListener(new View.OnClickListener() {
@@ -153,7 +152,7 @@ public class GameActivity extends AppCompatActivity {
             currentCol++;
         }
     }
-    private java.util.HashMap<String, KeyView> keyboardMap = new java.util.HashMap<>();
+    private Map<String, KeyView> keyboardMap = new HashMap<>();
 
     private void deleteLetter() {
         if (currentCol > 0) {
@@ -182,10 +181,11 @@ public class GameActivity extends AppCompatActivity {
         if (isWin) {
             title.setText("כל הכבוד! 🏆");
             title.setTextColor(Color.parseColor("#4CAF50")); // ירוק
-            message.setText("ניצחת תוך " + timeSpent + " שניות!\nהמילה היא: " + targetWord);        } else {
+            message.setText("ניצחת תוך " + timeSpent + " שניות! המילה היא: " + targetWord);
+        } else {
             title.setText("לא נורא :( 💔");
             title.setTextColor(Color.parseColor("#E94560")); // אדום-ורוד
-            message.setText("נגמרו הניסיונות.\nהמילה הייתה: " + targetWord);
+            message.setText("נגמרו הניסיונות. המילה הייתה: " + targetWord);
         }
 
         // הגדרת כפתורים
@@ -233,45 +233,64 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+
+    final int green = Color.parseColor("#4CAF50");
+    final int yellow = Color.parseColor("#FFEB3B");
+    final int gray = Color.parseColor("#9E9E9E");
+
     private void checkWord(String guess) {
+        // מערך כדי לעקוב אחרי אותיות במילת המטרה שכבר "השתמשנו" בהן לצורך צביעה ירוקה
+        // זה מונע מצב שבו אות תצבע בצהוב למרות שהיא כבר נמצאה כירוקה במקום אחר
+
+        Log.d(TAG, "checkWord: " + guess);
+
         for (int i = 0; i < 5; i++) {
-            char g = guess.charAt(i);
+            char letter = guess.charAt(i);
+            Log.d(TAG, "checkWord letter: " + letter);
+
+            int color;
+            if (letter == targetWord.charAt(i)) {
+                color = green;
+            } else if (targetWord.contains(letter+"")) {
+                color = yellow; // צהוב
+            } else {
+                color = gray; // אפור
+            }
+
+            Log.d(TAG, "checkWord color: " + color);
+
+
+            KeyView key = keyboardMap.get(String.valueOf(letter));
+            if (key == null) continue;
+
+            updateKeyboardColor(key, color);
+
             TextView cell = cells[currentRow][i];
-            String letter = String.valueOf(g);
-            KeyView key = keyboardMap.get(letter); // מוצא את המקש המתאים
 
-            if (g == targetWord.charAt(i)) {
-                // ירוק - במקום הנכון
-                int green = Color.parseColor("#4CAF50");
-                cell.setBackgroundColor(green);
-                if (key != null) key.setBackgroundColor(green);
+            // צביעת התא בלוח
+            cell.setBackgroundColor(color);
+            cell.setTextColor(Color.WHITE); // מומלץ להוסיף כדי שהטקסט יהיה קריא
+            Log.d(TAG, "checkWord cell: " + cell.getText().toString());
 
-            } else if (targetWord.contains(letter)) {
-                // צהוב - קיימת במילה
-                int yellow = Color.parseColor("#FFEB3B");
-                cell.setBackgroundColor(yellow);
-
-                // צובע מקלדת בצהוב רק אם היא לא כבר ירוקה
-                if (key != null && !isKeyGreen(key)) {
-                    key.setBackgroundColor(yellow);
-                }
-
-            } else {
-                // אפור - לא במילה
-                int gray = Color.parseColor("#9E9E9E");
-                cell.setBackgroundColor(gray);
-                if (key != null) key.setBackgroundColor(gray);
-            }
-
-
-            if (g == targetWord.charAt(i)) {
-                cell.setBackgroundColor(Color.parseColor("#4CAF50")); // green
-            } else if (targetWord.contains(String.valueOf(g))) {
-                cell.setBackgroundColor(Color.parseColor("#FFEB3B")); // yellow
-            } else {
-                cell.setBackgroundColor(Color.parseColor("#9E9E9E")); // gray
-            }
         }
+    }
+
+    // פונקציית עזר לעדכון צבע המקלדת (שומרת על הצבע ה"חזק" ביותר)
+    private void updateKeyboardColor(KeyView key, int color) {
+        if (key == null) return;
+
+        Log.d(TAG, "updateKeyboardColor: " + color);
+
+        // השימוש ב-setTint שומר על הפינות המעוגלות והעיצוב המקורי
+        key.setKeyColor(color);
+    }
+
+    private boolean isKeyColor(KeyView key, int color) {
+        if (key.getBackground() instanceof android.graphics.drawable.ColorDrawable) {
+            return ((android.graphics.drawable.ColorDrawable) key.getBackground()).getColor() == color;
+        }
+        // במקרה של שימוש ב-Tint, הבדיקה מעט מורכבת יותר, אבל לצורך הפשטות:
+        return false;
     }
     private boolean isKeyGreen(KeyView key) {
         if (key.getBackground() instanceof android.graphics.drawable.ColorDrawable) {

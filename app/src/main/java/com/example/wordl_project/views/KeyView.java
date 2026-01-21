@@ -30,13 +30,12 @@ public class KeyView extends AppCompatTextView {
 
     private void init() {
         setBackground(ContextCompat.getDrawable(getContext(), R.drawable.key_bg));
-        setBackgroundTintList(ColorStateList.valueOf(0xFF3F51B5)); // default blue
+        setKeyColor(0xFF3F51B5); // default blue
         setTextColor(0xFFFFFFFF);
         setGravity(CENTER);
         setPadding(8, 8, 8, 8);
     }
 
-    // Optional: nice helper for your Wordle colors
     public void setKeyColor(int color) {
         setBackgroundTintList(ColorStateList.valueOf(color));
     }
