@@ -328,8 +328,8 @@ public class DatabaseService {
         });
     }
 
-    public void updateUser(@NotNull final User user, @Nullable final DatabaseCallback<Void> callback) {
-        runTransaction(USERS_PATH + "/" + user.getId(), User.class, currentUser -> user, new DatabaseCallback<User>() {
+    public void updateUser(@NotNull final String uid, @NotNull UnaryOperator<User> function, @Nullable final DatabaseCallback<Void> callback) {
+        runTransaction(USERS_PATH + "/" + uid, User.class, function, new DatabaseCallback<User>() {
             @Override
             public void onCompleted(User object) {
                 if (callback != null) {
@@ -369,16 +369,5 @@ public class DatabaseService {
 
     // endregion words
     // בתוך DatabaseService.java
-    public void updatePlayerScore(int pointsToAdd) {
-//        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(userId).child("score");
-//
-//        userRef.get().addOnCompleteListener(task -> {
-//            if (task.isSuccessful()) {
-//                // קבלת הניקוד הנוכחי והוספת הנקודות החדשות
-//                Integer currentScore = task.getResult().getValue(Integer.class);
-//                if (currentScore == null) currentScore = 0;
-//                userRef.setValue(currentScore + pointsToAdd);
-//            }
-//        });
-    }
+
 }

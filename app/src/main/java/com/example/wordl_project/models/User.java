@@ -1,5 +1,7 @@
 package com.example.wordl_project.models;
 
+import com.google.firebase.database.Exclude;
+
 public class User {
     protected String id;
     protected String username;
@@ -7,23 +9,21 @@ public class User {
     protected String email;
     public String image;
     protected int score;
-    protected int sucssesWordCount;
-    protected int faildWordCount;
-    protected double sucssesRate;
+    protected int successesWordCount;
+    protected int totalWordCount;
     protected boolean isAdmin;
 
     public User() {}
 
-    public User(String id, String username, String password, String email, String image, int score, int sucssesWordCount, int faildWordCount, double sucssesRate, boolean isAdmin) {
+    public User(String id, String username, String password, String email, String image, int score, int successesWordCount, int totalWordCount, boolean isAdmin) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.image = image;
         this.score = score;
-        this.sucssesWordCount = sucssesWordCount;
-        this.faildWordCount = faildWordCount;
-        this.sucssesRate = sucssesRate;
+        this.successesWordCount = successesWordCount;
+        this.totalWordCount = totalWordCount;
         this.isAdmin = isAdmin;
     }
 
@@ -75,27 +75,20 @@ public class User {
         this.score = score;
     }
 
-    public int getSucssesWordCount() {
-        return sucssesWordCount;
+    public int getSuccessesWordCount() {
+        return successesWordCount;
     }
 
-    public void setSucssesWordCount(int sucssesWordCount) {this.sucssesWordCount = sucssesWordCount;}
+    public void setSuccessesWordCount(int successesWordCount) {this.successesWordCount = successesWordCount;}
 
     public int getFaildWordCount() {
-        return faildWordCount;
+        return totalWordCount;
     }
 
     public void setFaildWordCount(int faildWordCount) {
-        this.faildWordCount = faildWordCount;
+        this.totalWordCount = faildWordCount;
     }
 
-    public double getSucssesRate() {
-        return sucssesRate;
-    }
-
-    public void setSucssesRate(double sucssesRate) {
-        this.sucssesRate = sucssesRate;
-    }
 
     public boolean isAdmin() {
         return isAdmin;
@@ -114,10 +107,29 @@ public class User {
                 ", email='" + email + '\'' +
                 ", image='" + image + '\'' +
                 ", score=" + score +
-                ", sucssesWordCount=" + sucssesWordCount +
-                ", faildWordCount=" + faildWordCount +
-                ", sucssesRate=" + sucssesRate +
+                ", sucssesWordCount=" + successesWordCount +
+                ", faildWordCount=" + totalWordCount +
                 ", isAdmin=" + isAdmin +
                 '}';
     }
+
+
+    public void addScore(int score) {
+        this.score += score;
+    }
+    public void addSuccessesWordCount(int sucssesWordCount) {
+        this.successesWordCount++;
+    }
+
+    public void addTotalWordCount(int totalWordCount) {
+        this.totalWordCount++;
+    }
+
+    @Exclude
+    public double getSuccessesRate() {
+        return (double) successesWordCount / totalWordCount;
+    }
+
+
+
 }

@@ -16,7 +16,7 @@ import android.widget.Button;
 
 
 public class MainActivity extends AppCompatActivity {
-    private Button btnLogout, btnNewGame, btnEditUser, btnGameEdit;
+    private Button btnLogout, btnNewGame, btnEditUser, btnGameEdit, btnEnglish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+        btnEnglish = findViewById(R.id.btnEnglish);
+        btnEnglish.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, EnglishGame.class)));
         btnNewGame = findViewById(R.id.btnNewGame);
         btnNewGame.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, GameActivity.class)));
         btnGameEdit = findViewById(R.id.btnGameEdit);

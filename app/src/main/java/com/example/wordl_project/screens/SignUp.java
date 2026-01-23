@@ -141,7 +141,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 , 0,
                 0,
                 0,
-                0,
                 false);
 
         databaseService.checkIfEmailExists(email, new DatabaseService.DatabaseCallback<>() {

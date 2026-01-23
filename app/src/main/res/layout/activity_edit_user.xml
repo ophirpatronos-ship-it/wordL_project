@@ -121,12 +121,12 @@
                     android:textColor="#757575" />
 
                 <TextView
+                    android:id="@+id/tv_user_win_rate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tv_user_win_rate"
+                    android:textColor="#388E3C"
                     android:textSize="32sp"
                     android:textStyle="bold"
-                    android:textColor="#1976D2"
                     tools:text="68%" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -181,17 +181,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:backgroundTint="#4CAF50"
         android:text="עריכת פרטי משתמש"
-        android:backgroundTint="#42A5F5"
-        app:layout_constraintTop_toBottomOf="@id/card_user_details"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/card_user_details" />
 
     <Button
         android:id="@+id/btnhomepage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:backgroundTint="#FFEB3B"
         android:text="חזרה לדף הבית"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

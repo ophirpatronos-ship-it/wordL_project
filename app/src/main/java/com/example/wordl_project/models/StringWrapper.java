@@ -2,6 +2,8 @@ package com.example.wordl_project.models;
 
 import androidx.annotation.NonNull;
 
+import java.util.Objects;
+
 public class StringWrapper {
 
     private String id;
@@ -38,5 +40,17 @@ public class StringWrapper {
                 "id='" + id + '\'' +
                 ", text='" + text + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        StringWrapper that = (StringWrapper) o;
+        return Objects.equals(id, that.id) && Objects.equals(text, that.text);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, text);
     }
 }

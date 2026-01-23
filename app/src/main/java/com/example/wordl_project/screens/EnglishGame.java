@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.function.UnaryOperator;
 
-public class GameActivity extends AppCompatActivity {
+public class EnglishGame extends AppCompatActivity {
 
     private static final String TAG = "GameActivity";
 

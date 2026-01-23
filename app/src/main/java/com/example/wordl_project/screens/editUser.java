@@ -27,6 +27,8 @@ import com.example.wordl_project.services.DatabaseService;
 import com.example.wordl_project.utils.ImageUtil;
 import com.example.wordl_project.utils.SharedPreferencesUtil;
 
+import java.util.function.UnaryOperator;
+
 public class editUser extends AppCompatActivity {
     private Button btnEditUser, btnhomepage;
     private TextView txtUserName, txtEmail, txtPassword, userScore, userWinRate;
@@ -79,6 +81,20 @@ public class editUser extends AppCompatActivity {
         userScore = findViewById(R.id.tv_user_score);
         userWinRate = findViewById(R.id.tv_user_win_rate);
 
+        DatabaseService.getInstance().getUser(user.getId(), new DatabaseService.DatabaseCallback<User>() {
+            @Override
+            public void onCompleted(User updatedUser) {
+                user = updatedUser;
+                SharedPreferencesUtil.saveUser(editUser.this, user);
+                loadUserDetailsFromSharedPref();
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+
+            }
+        });
+
         loadUserDetailsFromSharedPref();
     }
 
@@ -87,7 +103,7 @@ public class editUser extends AppCompatActivity {
         txtEmail.setText(user.getEmail());
         txtPassword.setText(user.getPassword());
         userScore.setText(String.valueOf(user.getScore()));
-        userWinRate.setText(String.format("%.1f%%", user.getSucssesRate() * 100));
+        userWinRate.setText(String.format("%.1f%%", user.getSuccessesRate() * 100));
 
         if (user.getImage() != null && !user.getImage().isEmpty()) {
             Bitmap bmp = ImageUtil.convertFrom64base(user.getImage());
@@ -128,7 +144,15 @@ public class editUser extends AppCompatActivity {
             user.setPassword(pass);
             btnSave.setEnabled(false);
 
-            DatabaseService.getInstance().updateUser(user, new DatabaseService.DatabaseCallback<Void>() {
+            DatabaseService.getInstance().updateUser(user.getId(), new UnaryOperator<User>() {
+                @Override
+                public User apply(User user) {
+                    if (user == null) return user;
+                    user.setUsername(uName);
+                    user.setPassword(pass);
+                    return user;
+                }
+            }, new DatabaseService.DatabaseCallback<Void>() {
                 @Override
                 public void onCompleted(Void object) {
                     runOnUiThread(() -> {
@@ -184,7 +208,15 @@ public class editUser extends AppCompatActivity {
 
         imgUserProfile.setImageResource(R.drawable.ic_user);
 
-        DatabaseService.getInstance().updateUser(user, new DatabaseService.DatabaseCallback<Void>() {
+        DatabaseService.getInstance().updateUser(user.getId(), new UnaryOperator<User>(){
+
+            @Override
+            public User apply(User u) {
+                if (u == null) return u;
+                u.setImage(null);
+                return u;
+            }
+        }, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void object) {
                 SharedPreferencesUtil.saveUser(editUser.this, user);
@@ -230,7 +262,14 @@ public class editUser extends AppCompatActivity {
     }
 
     private void saveProfileImage() {
-        DatabaseService.getInstance().updateUser(user, new DatabaseService.DatabaseCallback<Void>() {
+        DatabaseService.getInstance().updateUser(user.getId(), new UnaryOperator<User>() {
+            @Override
+            public User apply(User u) {
+                if (u == null) return u;
+                u.setImage(user.getImage());
+                return u;
+            }
+        }, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void object) {
                 SharedPreferencesUtil.saveUser(editUser.this, user);

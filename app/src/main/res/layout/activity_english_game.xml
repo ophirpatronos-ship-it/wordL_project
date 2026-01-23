@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    tools:context=".screens.GameActivity"
+    tools:context=".screens.EnglishGame"
     android:background="#111">
 
     <!-- Title -->
@@ -221,70 +221,70 @@
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="ת" />
+                android:text="Q" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyW"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="ף" />
+                android:text="W" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyE"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="ק" />
+                android:text="E" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyR"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="ר" />
+                android:text="R" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyT"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="א" />
+                android:text="T" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyY"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="ט" />
+                android:text="Y" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyU"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="ו" />
+                android:text="U" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyI"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="ן" />
+                android:text="I" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyO"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="ם" />
+                android:text="O" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyP"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="פ" />
+                android:text="P" />
         </LinearLayout>
 
         <!-- Row 2 -->
@@ -300,63 +300,63 @@
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="ש" />
+                android:text="A" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyS"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="ד" />
+                android:text="S" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyD"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="ג" />
+                android:text="D" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyF"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="כ" />
+                android:text="F" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyG"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="ע" />
+                android:text="G" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyH"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="י" />
+                android:text="H" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyJ"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="ח" />
+                android:text="J" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyK"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="ל" />
+                android:text="K" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyL"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="ך" />
+                android:text="L" />
         </LinearLayout>
 
         <!-- Row 3 -->
@@ -377,49 +377,49 @@
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="ז" />
+                android:text="Z" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyX"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="ס" />
+                android:text="X" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyC"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="ב" />
+                android:text="C" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyV"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="ה" />
+                android:text="V" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyB"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="נ" />
+                android:text="B" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyN"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="מ" />
+                android:text="N" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyM"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="צ" />
+                android:text="M" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyDel"
