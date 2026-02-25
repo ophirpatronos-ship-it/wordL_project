@@ -2,57 +2,56 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F5F5"
+    android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="24dp"
-    android:gravity="center_horizontal"
-    android:background="#F5F5F5"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
 
     >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
         android:text="ניהול מילים למשחק"
-        android:textSize="28sp"
-        android:textStyle="bold"
         android:textColor="#333333"
-        android:layout_marginBottom="32dp"/>
+        android:textSize="28sp"
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:background="@android:color/white"
-        android:padding="16dp"
-        android:elevation="4dp">
+        android:elevation="4dp"
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:text="הכנס מילה חדשה:"
-            android:textSize="16sp"
-            android:layout_marginBottom="8dp"/>
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/editTextNewWord"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:background="@android:drawable/edit_text"
             android:hint="למשל: תפוח"
             android:inputType="text"
-            android:padding="10dp"
-            android:background="@android:drawable/edit_text"/>
+            android:padding="10dp" />
 
         <Button
             android:id="@+id/btnAddWord"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="הוסף לרשימה"
             android:backgroundTint="#4CAF50"
+            android:text="הוסף לרשימה"
             android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -62,16 +61,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text=""
-        android:textColor="#757575"/>
+        android:textColor="#757575" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
         android:text="מילים קיימות:"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="8dp"/>
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewWords"

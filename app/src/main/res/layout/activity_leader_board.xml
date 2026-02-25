@@ -1,119 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="12dp"
-    android:layout_marginEnd="12dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginBottom="4dp"
-    app:cardCornerRadius="8dp"
-    app:cardElevation="2dp"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:clickable="true"
-    android:focusable="true">
+    android:layout_height="match_parent"
+    android:background="#111"
+    tools:context=".screens.LeaderBoard">
 
+
+    <?xml version="1.0" encoding="utf-8"?>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="12dp"
-        android:gravity="center_vertical">
+        android:layout_height="match_parent"
+        android:background="#F5F5F5"
+        android:orientation="vertical">
 
-        <!-- Rank Number -->
         <TextView
-            android:id="@+id/tvRank"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:text="1"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#1976D2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:background="@drawable/rank_background"/>
+            android:padding="20dp"
+            android:text="טבלת מובילים"
+            android:textColor="#1976D2"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-        <!-- Player Avatar & Name -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:paddingStart="12dp"
-            android:paddingEnd="8dp">
-
-            <ImageView
-                android:id="@+id/ivPlayerAvatar"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_user"
-                android:scaleType="centerCrop"
-                android:background="@drawable/avatar_circle_background"/>
-
-            <TextView
-                android:id="@+id/tvPlayerName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="שם השחקן"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#212121"
-                android:paddingStart="12dp"
-                android:maxLines="1"
-                android:ellipsize="end"/>
-
-        </LinearLayout>
-
-        <!-- Points -->
-        <LinearLayout
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/tvPoints"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1250"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#4CAF50"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="נק'"
-                android:textSize="10sp"
-                android:textColor="#999999"/>
-
-        </LinearLayout>
-
-        <!-- Win Rate -->
-        <LinearLayout
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/tvWinRate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="75%"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#FF9800"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ניצחונות"
-                android:textSize="10sp"
-                android:textColor="#999999"/>
-
-        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvLeaderboard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp"
+            tools:listitem="@layout/item_leader_board" />
 
     </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

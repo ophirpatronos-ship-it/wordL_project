@@ -1,7 +1,5 @@
 package com.example.wordl_project.screens;
 
-import static androidx.fragment.app.FragmentManager.TAG;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;

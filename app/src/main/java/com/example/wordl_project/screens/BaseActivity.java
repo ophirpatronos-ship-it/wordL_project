@@ -2,11 +2,9 @@ package com.example.wordl_project.screens;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.wordl_project.R;
 import com.example.wordl_project.services.DatabaseService;
 import com.google.firebase.database.annotations.Nullable;
 

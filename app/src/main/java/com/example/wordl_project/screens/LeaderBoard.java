@@ -2,40 +2,55 @@ package com.example.wordl_project.screens;
 
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.wordl_project.R;
+import com.example.wordl_project.adapters.LeaderboardAdapter;
+import com.example.wordl_project.models.User;
+import com.example.wordl_project.services.DatabaseService;
 
-public class LeaderBoard extends AppCompatActivity {
+import java.util.Comparator;
+import java.util.List;
+
+public class LeaderBoard extends BaseActivity {
+
+    private RecyclerView recyclerView;
+    private LeaderboardAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_leader_board);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
+        recyclerView = findViewById(R.id.rvLeaderboard);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        adapter = new LeaderboardAdapter();
+        recyclerView.setAdapter(adapter);
     }
 
-    public static class EnglishGame extends AppCompatActivity {
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            EdgeToEdge.enable(this);
-            setContentView(R.layout.activity_english_game);
-            ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-                return insets;
-            });
-        }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        databaseService.getUserList(new DatabaseService.DatabaseCallback<List<User>>() {
+            @Override
+            public void onCompleted(List<User> users) {
+                users.sort(new Comparator<User>() {
+                    @Override
+                    public int compare(User o1, User o2) {
+                        return Integer.compare(o2.getScore(), o1.getScore());
+                    }
+                });
+                adapter.setUserList(users);
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+
+            }
+        });
+
     }
 }

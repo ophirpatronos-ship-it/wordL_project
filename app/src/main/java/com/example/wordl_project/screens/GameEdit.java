@@ -9,12 +9,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import android.widget.Button;
 
 import com.example.wordl_project.R;
 
 public class GameEdit extends AppCompatActivity {
     private Button btnDellHebrew, btnAsddHebrew;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,4 +28,5 @@ public class GameEdit extends AppCompatActivity {
         Button btnAddHebrew = findViewById(R.id.btnAddHebrew);
         btnAddHebrew.setOnClickListener(v -> startActivity(new Intent(GameEdit.this, AddWordsHebrew.class)));
 
-}}
+    }
+}

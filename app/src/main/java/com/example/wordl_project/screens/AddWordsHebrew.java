@@ -4,16 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,9 +18,7 @@ import com.example.wordl_project.R;
 import com.example.wordl_project.adapters.WordAdapter;
 import com.example.wordl_project.models.StringWrapper;
 import com.example.wordl_project.services.DatabaseService;
-import com.example.wordl_project.views.KeyView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AddWordsHebrew extends AppCompatActivity {
@@ -74,7 +68,6 @@ public class AddWordsHebrew extends AppCompatActivity {
             }
         });
     }
-
 
 
     private void saveWord(String word) {
@@ -132,6 +125,7 @@ public class AddWordsHebrew extends AppCompatActivity {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
+
     public void showKeyboard(EditText editText) {
         editText.requestFocus();
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

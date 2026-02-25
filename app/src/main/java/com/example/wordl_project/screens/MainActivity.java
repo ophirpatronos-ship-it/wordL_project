@@ -12,7 +12,6 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.wordl_project.R;
 import com.example.wordl_project.utils.SharedPreferencesUtil;
-import android.widget.Button;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -49,9 +48,6 @@ public class MainActivity extends AppCompatActivity {
         landingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(landingIntent);
     }
-
-
-
 
 
 }

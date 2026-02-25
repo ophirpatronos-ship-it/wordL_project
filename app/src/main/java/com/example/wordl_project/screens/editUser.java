@@ -1,18 +1,11 @@
 package com.example.wordl_project.screens;
 
-import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +13,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 import com.example.wordl_project.R;
 import com.example.wordl_project.models.User;
@@ -30,14 +29,12 @@ import com.example.wordl_project.utils.SharedPreferencesUtil;
 import java.util.function.UnaryOperator;
 
 public class editUser extends AppCompatActivity {
+    private static final int REQ_CAMERA = 100;
+    private static final int REQ_GALLERY = 200;
     private Button btnEditUser, btnhomepage;
     private TextView txtUserName, txtEmail, txtPassword, userScore, userWinRate;
     private ImageView imgUserProfile;
     private ImageButton btnChangePhoto;
-
-    private static final int REQ_CAMERA = 100;
-    private static final int REQ_GALLERY = 200;
-
     private User user;
 
     @Override
@@ -59,7 +56,7 @@ public class editUser extends AppCompatActivity {
         btnhomepage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(editUser.this,MainActivity.class);
+                Intent intent = new Intent(editUser.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -208,7 +205,7 @@ public class editUser extends AppCompatActivity {
 
         imgUserProfile.setImageResource(R.drawable.ic_user);
 
-        DatabaseService.getInstance().updateUser(user.getId(), new UnaryOperator<User>(){
+        DatabaseService.getInstance().updateUser(user.getId(), new UnaryOperator<User>() {
 
             @Override
             public User apply(User u) {
@@ -240,8 +237,7 @@ public class editUser extends AppCompatActivity {
 
         if (requestCode == REQ_CAMERA && data != null) {
             bitmap = (Bitmap) data.getExtras().get("data");
-        }
-        else if (requestCode == REQ_GALLERY && data != null) {
+        } else if (requestCode == REQ_GALLERY && data != null) {
             try {
                 bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(data.getData())
                 );

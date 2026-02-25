@@ -29,17 +29,6 @@ import java.util.function.UnaryOperator;
 public class EnglishGame extends AppCompatActivity {
 
     private static final String TAG = "GameActivity";
-
-    private String targetWord;
-    private int currentRow = 0;
-    private int currentCol = 0;
-
-    private LinearLayout[] rows = new LinearLayout[5];
-    private TextView[][] cells = new TextView[5][5];
-    private StringBuilder currentGuess = new StringBuilder();
-    private List<StringWrapper> wordsList = new ArrayList<>();
-
-
     final int[] letterIds = new int[]{
             R.id.keyA, R.id.keyB, R.id.keyC, R.id.keyD, R.id.keyE, R.id.keyF,
             R.id.keyG, R.id.keyH, R.id.keyI, R.id.keyJ, R.id.keyK, R.id.keyL,
@@ -47,6 +36,18 @@ public class EnglishGame extends AppCompatActivity {
             R.id.keyS, R.id.keyT, R.id.keyU, R.id.keyV, R.id.keyW, R.id.keyX,
             R.id.keyY, R.id.keyZ
     };
+    final int green = Color.parseColor("#4CAF50");
+    final int yellow = Color.parseColor("#FFEB3B");
+    final int gray = Color.parseColor("#9E9E9E");
+    private String targetWord;
+    private int currentRow = 0;
+    private int currentCol = 0;
+    private LinearLayout[] rows = new LinearLayout[5];
+    private TextView[][] cells = new TextView[5][5];
+    private StringBuilder currentGuess = new StringBuilder();
+    private List<StringWrapper> wordsList = new ArrayList<>();
+    private Map<String, KeyView> keyboardMap = new HashMap<>();
+    private Chronometer gameStopwatch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,11 +98,6 @@ public class EnglishGame extends AppCompatActivity {
         });
     }
 
-
-
-
-
-
     private void chooseRandomWord() {
         if (wordsList.isEmpty()) {
             Log.d(TAG, "chooseRandomWord: wordsList is empty");
@@ -112,7 +108,6 @@ public class EnglishGame extends AppCompatActivity {
         Random random = new Random();
         targetWord = wordsList.get(random.nextInt(wordsList.size())).getText();
     }
-
 
     private void setupGrid() {
         rows[0] = findViewById(R.id.row1);
@@ -167,8 +162,6 @@ public class EnglishGame extends AppCompatActivity {
         currentGuess.append(letter);
         currentCol++;
     }
-
-    private Map<String, KeyView> keyboardMap = new HashMap<>();
 
     private void deleteLetter() {
         if (currentCol <= 0) {
@@ -250,11 +243,6 @@ public class EnglishGame extends AppCompatActivity {
 
     }
 
-
-    final int green = Color.parseColor("#4CAF50");
-    final int yellow = Color.parseColor("#FFEB3B");
-    final int gray = Color.parseColor("#9E9E9E");
-
     private void checkWord(String guess) {
         // מערך כדי לעקוב אחרי אותיות במילת המטרה שכבר "השתמשנו" בהן לצורך צביעה ירוקה
         // זה מונע מצב שבו אות תצבע בצהוב למרות שהיא כבר נמצאה כירוקה במקום אחר
@@ -301,8 +289,6 @@ public class EnglishGame extends AppCompatActivity {
         // השימוש ב-setTint שומר על הפינות המעוגלות והעיצוב המקורי
         key.setKeyColor(color);
     }
-
-    private Chronometer gameStopwatch;
 
     private int calculateScore(int row, long secondsElapsed) {
         int score;

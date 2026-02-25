@@ -6,6 +6,7 @@
     <string name="google_crash_reporting_api_key" translatable="false">AIzaSyC3u2Aez8OwE_9nW9O7egSp9Cbvlm-e_OA</string>
     <string name="google_storage_bucket" translatable="false">wordl-407a7.firebasestorage.app</string>
     <string name="project_id" translatable="false">wordl-407a7</string>
+
     <style name="Tile">
         <item name="android:layout_width">100dp</item>
         <item name="android:layout_height">100dp</item>

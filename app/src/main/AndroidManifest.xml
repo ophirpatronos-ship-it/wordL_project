@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
         android:allowBackup="true"
@@ -10,12 +9,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.WordL_project" >
+        android:theme="@style/Theme.WordL_project">
         <activity
             android:name=".screens.EnglishGame"
-            android:exported="false" />
-        <activity
-            android:name=".screens.LeaderBoard$EnglishGame"
             android:exported="false" />
         <activity
             android:name=".screens.LeaderBoard"
@@ -46,7 +42,7 @@
             android:exported="false" />
         <activity
             android:name=".screens.SplashActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

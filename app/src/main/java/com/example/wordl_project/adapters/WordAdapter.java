@@ -17,11 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder> {
-    public interface OnWordClickListener {
-        void onWordClick(StringWrapper word);
-        void onLongWordClick(StringWrapper word);
-    }
-
     private List<StringWrapper> wordList;
     private OnWordClickListener onWordClickListener;
     public WordAdapter(@Nullable final OnWordClickListener onWordClickListener) {
@@ -37,7 +32,6 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
         return new WordViewHolder(view);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull WordViewHolder holder, int position) {
         StringWrapper word = wordList.get(position);
@@ -49,6 +43,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
 
         });
     }
+
     public void setWordList(List<StringWrapper> words) {
         wordList.clear();
         wordList.addAll(words);
@@ -59,6 +54,7 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
         wordList.add(word);
         notifyItemInserted(wordList.size() - 1);
     }
+
     public void updateWord(StringWrapper word) {
         int index = wordList.indexOf(word);
         if (index == -1) return;
@@ -74,7 +70,15 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.WordViewHolder
     }
 
     @Override
-    public int getItemCount() { return wordList.size(); }
+    public int getItemCount() {
+        return wordList.size();
+    }
+
+    public interface OnWordClickListener {
+        void onWordClick(StringWrapper word);
+
+        void onLongWordClick(StringWrapper word);
+    }
 
     class WordViewHolder extends RecyclerView.ViewHolder {
         TextView textView;

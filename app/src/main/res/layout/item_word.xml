@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:padding="12dp"
-    android:gravity="center_vertical">
+    android:padding="12dp">
 
     <TextView
         android:id="@+id/textViewWord"
@@ -21,11 +21,11 @@
         android:id="@+id/btnDelete"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:src="@android:drawable/ic_menu_delete"
-        android:contentDescription="מחק"
-        android:tint="#FF5252"
-        android:padding="4dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
+        android:contentDescription="מחק"
         android:focusable="true"
-        android:background="?attr/selectableItemBackgroundBorderless"/>
+        android:padding="4dp"
+        android:src="@android:drawable/ic_menu_delete"
+        android:tint="#FF5252" />
 </LinearLayout>

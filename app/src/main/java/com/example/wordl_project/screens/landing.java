@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,10 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.wordl_project.R;
-import com.example.wordl_project.services.DatabaseService;
 import com.example.wordl_project.utils.SharedPreferencesUtil;
-
-import java.util.List;
 
 public class landing extends AppCompatActivity {
     Button btnLogin, btnRegister;

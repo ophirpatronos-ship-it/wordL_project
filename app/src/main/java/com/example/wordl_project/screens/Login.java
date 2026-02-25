@@ -22,10 +22,10 @@ import com.example.wordl_project.utils.SharedPreferencesUtil;
 import com.example.wordl_project.utils.Validator;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
+    DatabaseService databaseService;
     private EditText etEmail, etPassword;
     private Button btnLogin;
 
-    DatabaseService databaseService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +79,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
     /// Method to check if the input is valid
     /// It checks if the email and password are valid
+    ///
     /// @see Validator#isEmailValid(String)
     /// @see Validator#isPasswordValid(String)
     private boolean checkInput(String email, String password) {

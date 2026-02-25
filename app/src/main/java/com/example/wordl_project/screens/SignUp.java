@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -27,12 +27,10 @@ import com.example.wordl_project.utils.Validator;
 /// When the user is registered, they are redirected to the main activity
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "RegisterActivity";
-
-    private EditText etEmail, etPassword, etLName,etUsername;
+    DatabaseService databaseService;
+    private EditText etEmail, etPassword, etLName, etUsername;
     private Button btnRegister;
     private Button tvSignUp;
-
-    DatabaseService databaseService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +89,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     }
 
     /// Check if the input is valid
+    ///
     /// @return true if the input is valid, false otherwise
     /// @see Validator
     private boolean checkInput(String email, String password, String username) {

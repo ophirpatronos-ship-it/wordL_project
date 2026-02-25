@@ -3,17 +3,18 @@ package com.example.wordl_project.models;
 import com.google.firebase.database.Exclude;
 
 public class User {
+    public String image;
     protected String id;
     protected String username;
     protected String password;
     protected String email;
-    public String image;
     protected int score;
     protected int successesWordCount;
     protected int totalWordCount;
     protected boolean isAdmin;
 
-    public User() {}
+    public User() {
+    }
 
     public User(String id, String username, String password, String email, String image, int score, int successesWordCount, int totalWordCount, boolean isAdmin) {
         this.id = id;
@@ -79,7 +80,9 @@ public class User {
         return successesWordCount;
     }
 
-    public void setSuccessesWordCount(int successesWordCount) {this.successesWordCount = successesWordCount;}
+    public void setSuccessesWordCount(int successesWordCount) {
+        this.successesWordCount = successesWordCount;
+    }
 
     public int getFaildWordCount() {
         return totalWordCount;
@@ -117,6 +120,7 @@ public class User {
     public void addScore(int score) {
         this.score += score;
     }
+
     public void addSuccessesWordCount(int sucssesWordCount) {
         this.successesWordCount++;
     }
@@ -127,9 +131,9 @@ public class User {
 
     @Exclude
     public double getSuccessesRate() {
+        if (totalWordCount == 0) return 0;
         return (double) successesWordCount / totalWordCount;
     }
-
 
 
 }
