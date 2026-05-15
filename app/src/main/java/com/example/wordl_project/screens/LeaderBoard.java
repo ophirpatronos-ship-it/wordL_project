@@ -1,6 +1,8 @@
 package com.example.wordl_project.screens;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +18,9 @@ import java.util.List;
 public class LeaderBoard extends BaseActivity {
 
     private RecyclerView recyclerView;
+    private Button btnhomepage2;
     private LeaderboardAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,7 @@ public class LeaderBoard extends BaseActivity {
         adapter = new LeaderboardAdapter();
         recyclerView.setAdapter(adapter);
     }
+
 
 
     @Override
@@ -51,6 +56,9 @@ public class LeaderBoard extends BaseActivity {
 
             }
         });
+        btnhomepage2 = findViewById(R.id.btnhomepage2);
+        btnhomepage2.setOnClickListener(v -> startActivity(new Intent(LeaderBoard.this, MainActivity.class)));
+
 
     }
 }

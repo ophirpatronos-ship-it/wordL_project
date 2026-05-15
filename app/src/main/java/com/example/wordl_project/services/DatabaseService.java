@@ -347,16 +347,15 @@ public class DatabaseService {
         });
     }
 
-    public String generateHebrewWordId() {
-        return generateNewId(WORDS_HEBREW_PATH);
-    }
-
 
     // endregion User Section
 
 
     // region words
 
+    public String generateHebrewWordId() {
+        return generateNewId(WORDS_HEBREW_PATH);
+    }
     public void createNewHebrewWord(@NotNull final StringWrapper word, @Nullable final DatabaseCallback<Void> callback) {
         writeData(WORDS_HEBREW_PATH + "/" + word.getId(), word, callback);
     }
@@ -367,6 +366,21 @@ public class DatabaseService {
 
     public void removeHebrewWord(@NotNull final StringWrapper word, @Nullable final DatabaseCallback<Void> callback) {
         deleteData(WORDS_HEBREW_PATH + "/" + word.getId(), callback);
+    }
+
+    public String generateEnglishWordId() {
+        return generateNewId(WORDS_ENGLISH_PATH);
+    }
+    public void createNewEnglishWord(@NotNull final StringWrapper word, @Nullable final DatabaseCallback<Void> callback) {
+        writeData(WORDS_ENGLISH_PATH + "/" + word.getId(), word, callback);
+    }
+
+    public void getEnglishWordList(@NotNull final DatabaseCallback<List<StringWrapper>> callback) {
+        getDataList(WORDS_ENGLISH_PATH, StringWrapper.class, callback);
+    }
+
+    public void removeEnglishWord(@NotNull final StringWrapper word, @Nullable final DatabaseCallback<Void> callback) {
+        deleteData(WORDS_ENGLISH_PATH + "/" + word.getId(), callback);
     }
 
     /// callback interface for database operations

@@ -28,7 +28,7 @@ import com.example.wordl_project.utils.Validator;
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "RegisterActivity";
     DatabaseService databaseService;
-    private EditText etEmail, etPassword, etLName, etUsername;
+    private EditText etEmail, etPassword, etUsername, etConfirmPassword;
     private Button btnRegister;
     private Button tvSignUp;
 
@@ -50,6 +50,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         etEmail = findViewById(R.id.inputEmail);
         etPassword = findViewById(R.id.inputPassword);
         etUsername = findViewById(R.id.inputUsername);
+        etConfirmPassword = findViewById(R.id.inputConfirmPassword);
         btnRegister = findViewById(R.id.btnRegister);
 
         /// set the click listener
@@ -65,11 +66,14 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             String email = etEmail.getText().toString();
             String password = etPassword.getText().toString();
             String username = etUsername.getText().toString();
+            String confirmpasswordpassword = etConfirmPassword.getText().toString();
 
             /// log the input
             Log.d(TAG, "onClick: Email: " + email);
             Log.d(TAG, "onClick: Password: " + password);
             Log.d(TAG, "onClick: First Name: " + username);
+            Log.d(TAG, "onClick: confirmpasswordpassword " + confirmpasswordpassword);
+
 
             /// Validate input
             Log.d(TAG, "onClick: Validating input...");
@@ -94,27 +98,27 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     /// @see Validator
     private boolean checkInput(String email, String password, String username) {
         if (!Validator.isEmailValid(email)) {
-            Log.e(TAG, "checkInput: Invalid email address");
+            Log.e(TAG, "checkInput: כתובת אימייל לא תקינה");
             /// show error message to user
-            etEmail.setError("Invalid email address");
+            etEmail.setError("כתובת אימייל לא תקינה");
             /// set focus to email field
             etEmail.requestFocus();
             return false;
         }
 
         if (!Validator.isPasswordValid(password)) {
-            Log.e(TAG, "checkInput: Password must be at least 6 characters long");
+            Log.e(TAG, "checkInput: סיסמה חייבת להיות באורך 6 תוים לפחות");
             /// show error message to user
-            etPassword.setError("Password must be at least 6 characters long");
+            etPassword.setError("סיסמה חייבת להיות באורך 6 תוים לפחות");
             /// set focus to password field
             etPassword.requestFocus();
             return false;
         }
 
         if (!Validator.isNameValid(username)) {
-            Log.e(TAG, "checkInput: First name must be at least 3 characters long");
+            Log.e(TAG, "checkInput: שם משתמש חייב להיות באורך 3 תוים לפחות");
             /// show error message to user
-            etUsername.setError("First name must be at least 3 characters long");
+            etUsername.setError("שם משתמש חייב להיות באורך 3 תוים לפחות");
             /// set focus to first name field
             etUsername.requestFocus();
             return false;
@@ -146,9 +150,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onCompleted(Boolean exists) {
                 if (exists) {
-                    Log.e(TAG, "onCompleted: Email already exists");
+                    Log.e(TAG, "onCompleted: כתובת אימייל כבר בשימוש");
                     /// show error message to user
-                    Toast.makeText(SignUp.this, "Email already exists", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUp.this, "כתובת אימייל כבר בשימוש", Toast.LENGTH_SHORT).show();
                 } else {
                     /// proceed to create the user
                     createUserInDatabase(user);
@@ -157,9 +161,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
             @Override
             public void onFailed(Exception e) {
-                Log.e(TAG, "onFailed: Failed to check if email exists", e);
+                Log.e(TAG, "onFailed: בדיקת האימייל נכשלה", e);
                 /// show error message to user
-                Toast.makeText(SignUp.this, "Failed to register user", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignUp.this, "הרשמת המשתמש נכשלה", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -181,9 +185,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
             @Override
             public void onFailed(Exception e) {
-                Log.e(TAG, "createUserInDatabase: Failed to create user", e);
+                Log.e(TAG, "createUserInDatabase: יצירת המשתמש נכשלה", e);
                 /// show error message to user
-                Toast.makeText(SignUp.this, "Failed to register user", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SignUp.this, "הרשמת המשתמש נכשלה", Toast.LENGTH_SHORT).show();
                 /// sign out the user if failed to register
                 SharedPreferencesUtil.signOutUser(SignUp.this);
             }

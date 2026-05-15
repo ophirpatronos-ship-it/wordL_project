@@ -15,7 +15,7 @@ import com.example.wordl_project.utils.SharedPreferencesUtil;
 
 
 public class MainActivity extends AppCompatActivity {
-    private Button btnLogout, btnNewGame, btnEditUser, btnGameEdit, btnEnglish;
+    private Button btnLogout, btnNewGame, btnEditUser, btnLeaderboard, btnGameEdit, btnEnglish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         btnNewGame.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, GameActivity.class)));
         btnGameEdit = findViewById(R.id.btnGameEdit);
         btnGameEdit.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, GameEdit.class)));
+        btnLeaderboard = findViewById(R.id.btnLeaderboard);
+        btnLeaderboard.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, LeaderBoard.class)));
         btnEditUser = findViewById(R.id.btnProfile);
         btnEditUser.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, editUser.class)));
         btnLogout = findViewById(R.id.btnLogout);

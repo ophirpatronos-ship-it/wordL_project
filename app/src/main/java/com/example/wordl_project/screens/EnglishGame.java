@@ -28,7 +28,7 @@ import java.util.function.UnaryOperator;
 
 public class EnglishGame extends AppCompatActivity {
 
-    private static final String TAG = "GameActivity";
+    private static final String TAG = "EnglisGameActivity";
     final int[] letterIds = new int[]{
             R.id.keyA, R.id.keyB, R.id.keyC, R.id.keyD, R.id.keyE, R.id.keyF,
             R.id.keyG, R.id.keyH, R.id.keyI, R.id.keyJ, R.id.keyK, R.id.keyL,
@@ -52,7 +52,7 @@ public class EnglishGame extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_english_game);
         gameStopwatch = findViewById(R.id.gameStopwatch);
         gameStopwatch.setBase(android.os.SystemClock.elapsedRealtime()); // איפוס לשעה הנוכחית
         gameStopwatch.start(); // התחלת המדידה
@@ -64,7 +64,7 @@ public class EnglishGame extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        DatabaseService.getInstance().getHebrewWordList(new DatabaseService.DatabaseCallback<List<StringWrapper>>() {
+        DatabaseService.getInstance().getEnglishWordList(new DatabaseService.DatabaseCallback<List<StringWrapper>>() {
             @Override
             public void onCompleted(List<StringWrapper> words) {
                 runOnUiThread(new Runnable() {
@@ -157,8 +157,8 @@ public class EnglishGame extends AppCompatActivity {
     private void addLetter(String letter) {
         if (targetWord == null) return;
         if (currentCol >= 5 || currentRow >= 5) return;
-
-        cells[currentRow][currentCol].setText(letter);
+        int len = cells[currentRow].length;
+        cells[currentRow][len-1-currentCol].setText(letter);
         currentGuess.append(letter);
         currentCol++;
     }
@@ -168,7 +168,8 @@ public class EnglishGame extends AppCompatActivity {
             return;
         }
         currentCol--;
-        cells[currentRow][currentCol].setText("");
+        int len = cells[currentRow].length;
+        cells[currentRow][len-1-currentCol].setText("");
         currentGuess.deleteCharAt(currentGuess.length() - 1);
     }
 

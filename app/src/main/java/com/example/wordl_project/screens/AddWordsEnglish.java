@@ -21,7 +21,7 @@ import com.example.wordl_project.services.DatabaseService;
 
 import java.util.List;
 
-public class AddWordsHebrew extends AppCompatActivity {
+public class AddWordsEnglish extends AppCompatActivity {
 
     private EditText editTextNewWord;
     private Button btnAddWord, btnHomePage;
@@ -31,14 +31,14 @@ public class AddWordsHebrew extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_words_hebrew); // וודאי שזה שם ה-XML שלך
+        setContentView(R.layout.activity_add_words_english); // וודאי שזה שם ה-XML שלך
 
         // קישור רכיבים מה-XML
         editTextNewWord = findViewById(R.id.editTextNewWord1);
         btnAddWord = findViewById(R.id.btnAddWord1);
         recyclerViewWords = findViewById(R.id.recyclerViewWords);
         btnHomePage = findViewById(R.id.btnHomePage1);
-        btnHomePage.setOnClickListener(v -> startActivity(new Intent(AddWordsHebrew.this, MainActivity.class)));
+        btnHomePage.setOnClickListener(v -> startActivity(new Intent(AddWordsEnglish.this, MainActivity.class)));
 
         // הגדרת ה-RecyclerView
         recyclerViewWords.setLayoutManager(new LinearLayoutManager(this));
@@ -71,25 +71,25 @@ public class AddWordsHebrew extends AppCompatActivity {
 
 
     private void saveWord(String word) {
-        String id = DatabaseService.getInstance().generateHebrewWordId();
+        String id = DatabaseService.getInstance().generateEnglishWordId();
         StringWrapper stringWrapper = new StringWrapper(id, word);
-        DatabaseService.getInstance().createNewHebrewWord(stringWrapper, new DatabaseService.DatabaseCallback<Void>() {
+        DatabaseService.getInstance().createNewEnglishWord(stringWrapper, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void object) {
-                Toast.makeText(AddWordsHebrew.this, "המילה נוספה!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddWordsEnglish.this, "המילה נוספה!", Toast.LENGTH_SHORT).show();
                 editTextNewWord.setText("");
                 loadWords(); // רענון הרשימה לאחר הוספה
             }
 
             @Override
             public void onFailed(Exception e) {
-                Toast.makeText(AddWordsHebrew.this, "שגיאה: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddWordsEnglish.this, "שגיאה: " + e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void loadWords() {
-        DatabaseService.getInstance().getHebrewWordList(new DatabaseService.DatabaseCallback<List<StringWrapper>>() {
+        DatabaseService.getInstance().getEnglishWordList(new DatabaseService.DatabaseCallback<List<StringWrapper>>() {
             @Override
             public void onCompleted(List<StringWrapper> words) {
                 adapter.setWordList(words);
@@ -107,7 +107,7 @@ public class AddWordsHebrew extends AppCompatActivity {
         DatabaseService.getInstance().removeHebrewWord(wordToDelete, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void v) {
-                Toast.makeText(AddWordsHebrew.this, "המילה '" + wordToDelete + "' נמחקה", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddWordsEnglish.this, "המילה '" + wordToDelete + "' נמחקה", Toast.LENGTH_SHORT).show();
                 loadWords();
             }
 

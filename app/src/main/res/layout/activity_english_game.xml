@@ -222,21 +222,21 @@
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="Q" />
+                android:text="q" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyW"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="W" />
+                android:text="e" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyE"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="E" />
+                android:text="r" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyR"
@@ -250,42 +250,42 @@
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="T" />
+                android:text="t" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyY"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="Y" />
+                android:text="y" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyU"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="U" />
+                android:text="u" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyI"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="I" />
+                android:text="i" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyO"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="O" />
+                android:text="o" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyP"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="P" />
+                android:text="p" />
         </LinearLayout>
 
         <!-- Row 2 -->
@@ -301,49 +301,49 @@
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="A" />
+                android:text="a" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyS"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="S" />
+                android:text="s" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyD"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="D" />
+                android:text="d" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyF"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="F" />
+                android:text="f" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyG"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="G" />
+                android:text="g" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyH"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="H" />
+                android:text="h" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyJ"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="J" />
+                android:text="k" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyK"
@@ -357,7 +357,7 @@
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="L" />
+                android:text="l" />
         </LinearLayout>
 
         <!-- Row 3 -->
@@ -378,49 +378,49 @@
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="Z" />
+                android:text="z" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyX"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="X" />
+                android:text="x" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyC"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="C" />
+                android:text="c" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyV"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="V" />
+                android:text="v" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyB"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="B" />
+                android:text="b" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyN"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="N" />
+                android:text="n" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyM"
                 android:layout_width="0dp"
                 android:layout_height="55dp"
                 android:layout_weight="1"
-                android:text="M" />
+                android:text="m" />
 
             <com.example.wordl_project.views.KeyView
                 android:id="@+id/keyDel"
